@@ -30,9 +30,9 @@ tagList(
                tabPanel("Overview", value = "soc"), 
                tabPanel("Pileated Woodpecker", value = "piwo"), 
                tabPanel("Yellow Rail", value = "yera"), 
-               tabPanel("Rusty Blackbird", value = "rubl"), 
-               tabPanel("Canadian Toad", value = "cato"), 
-               tabPanel("Sharp-tailed Grouse", value = "stgr"), 
+#                tabPanel("Rusty Blackbird", value = "rubl"), 
+#                tabPanel("Canadian Toad", value = "cato"), 
+#                tabPanel("Sharp-tailed Grouse", value = "stgr"), 
                tabPanel("Whooping Crane", value = "whcr"), 
     )
   ),
@@ -113,8 +113,8 @@ tagList(
                             selected = "Ovenbird"),
                           selectInput(
                             inputId = "lease_name", 
-                            label = "Select total area or lease area:", 
-                            choices = c("Total area", "All leases", risk_leases$lease_name), 
+                            label = "Select area for assessment:", 
+                            choices = c("Full OSR", "All leases", risk_leases$lease_name), 
                             selected = "Suncor Energy Inc."
                           ), 
                           div(actionButton(inputId = "spp_lease", 

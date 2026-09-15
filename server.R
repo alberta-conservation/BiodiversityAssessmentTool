@@ -110,6 +110,17 @@ server <- function(input, output, session){
   # Create the updated OSR maps with selected species, production field, and lease holder
   observeEvent(input$co_prodField, {
     
+    cop <- lease_exp_ref |> filter(osa == input$prod_field & lease_holder == input$app_holder)
+    if(isTRUE(nrow(cop) == 0)){
+      showModal(modalDialog(
+        title = "The selected lease holders do not occur within the selected Oil Sands Area",
+        "Prior to generating the data, you must confirm that the selected OSA contains leases belonging to the selected lease holder.",
+        easyClose = TRUE,
+        footer =  "Click anywhere on the screen to close this message.")
+      )
+    }
+    req(isTRUE(nrow(cop) > 0))
+    
     r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
     rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
     pf <- osr |> filter(Area_Name == input$prod_field)
