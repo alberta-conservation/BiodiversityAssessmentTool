@@ -1,0 +1,53 @@
+--- 
+runtime: shiny
+---
+
+
+<left>
+
+# Species Information: 
+
+### Black-throated Green Warbler (*Setophaga virens*) 
+
+<br> 
+
+:::: {style = "display: flex; gap: 10px;"} 
+
+::: {style="flex: 47.5%;"}
+
+![](../www/btnw.jpg){width=100%}
+
+::: 
+
+::: {style="flex: 5%;"} 
+
+::: 
+
+::: {style="flex: 47.5%;"}
+
+## **CONSERVATION STATUS**
+
+* <abbr title="Committee on the Status of Endangered Wildlife in Caada">COSEWIC</abbr> Status: None 
+
+* <abbr title="Partners in Flight">PIF</abbr> Regional Importance in BCR 6: [<span style="color: white;"><u>Common bird in steep decline</u></span>](https://app.bcr.eco/pif/#eyJsaXN0IjoiYWNhZCIsInJlZ2lvbiI6InJlZ2lvbmFsIiwiZmlsdGVycyI6W1t7ImZpZWxkIjoiQUktYiIsInR5cGUiOiIhPSIsInZhbHVlIjpudWxsfSx7ImZpZWxkIjoiQUktdyIsInR5cGUiOiIhPSIsInZhbHVlIjpudWxsfSx7ImZpZWxkIjoiQUktbSIsInR5cGUiOiIhPSIsInZhbHVlIjpudWxsfV0seyJmaWVsZCI6IkJDUiIsInR5cGUiOiJpbiIsInZhbHVlIjpbIjYiXX0seyJmaWVsZCI6IkNvbW1vbiBOYW1lIiwidHlwZSI6Imxpa2UiLCJ2YWx1ZSI6ImJsYWNrLXRocm8ifV0sInNvcnRlcnMiOnsiVEItciI6ImFzYyJ9LCJzcGVjaWVzX29mX2ltcG9ydGFuY2UiOmZhbHNlfQ==)
+
+* <abbr title="Alberta's Endangered Species Conservation Committee">ESCC</abbr> Status in  Alberta: Special Concern 
+
+* <abbr title="Government of Alberta's general status of wildlife species">General</abbr> Status in  Alberta: Sensitive 
+
+* <abbr title="Alberta Conservation Information Management System">ACIMS</abbr> Status in  Alberta: [<span style="color: white;"><u>S3S4B</u></span>](https://www.alberta.ca/acims-conservation-status-ranks#jumplinks-1) 
+
+* [<span style="color: white;"><u>Link to **ABMI Status** Page</u></span>](https://abmi.ca/species/black+throated-green-warbler)
+
+::: 
+
+:::: 
+
+<br>
+
+## Overview
+
+The black-throated green warbler (BTNW) is a migratory forest songbird species that is generally uncommon in the OSR. This species is most strongly associated with mature mixedwood and white spruce stands in the boreal forest and foothills regions of Alberta. Because of their dependence on mature, closed canopy forests and negative response to fragmentation, BTNW populations are sensitive to forest harvest, oil sands disturbances, and other forms of industrial development. Due to perceived population declines and expected future habitat loss, BTNW are considered a species of special concern in Alberta. 
+
+<br> 
+

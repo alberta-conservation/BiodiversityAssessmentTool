@@ -1,0 +1,33 @@
+--- 
+runtime: shiny
+
+---
+
+
+<left>
+
+# Species Information: 
+
+### Mitigation recommendations for Black-throated Green Warbler (*Setophaga virens*) 
+
+<br> 
+
+**1. Avoidance:** 
+  
+  Avoid creating disturbances, including seismic lines, in areas of mixedwood and white spruce forest >80 years old. 
+  
+**2. Minimization:** 
+  
+  If disturbances in preferred habitat cannot be avoided, cluster disturbances in a way that will leave large areas of mature mixedwood and white spruce forest undisturbed. 
+
+**3. Onsite Remediation:** 
+  
+  Where avoidance or minimization are not feasible, conduct appropriate reclamation and restoration activities as soon as practicable to accelerate the process of returning the area to good quality habitat. 
+  
+**4. Offsetting:** 
+  
+  If all other measures are not feasible, consider activities in appropriate sites that could accelerate the return of disturbed forest to desired conditions. For example, conduct tree planting or forestry activities in nearby cut blocks that can help accelerate the return to mature mixedwood forest. 
+  
+
+<br> 
+

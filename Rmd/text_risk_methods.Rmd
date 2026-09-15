@@ -1,0 +1,13 @@
+--- 
+runtime: shiny
+
+---
+
+
+<centre>
+
+# Risk Assessment methods: 
+
+### This is how we esitmated risk from oil sands disturbances. 
+
+![](../www/risk-assessment-figure.png){width=150%}

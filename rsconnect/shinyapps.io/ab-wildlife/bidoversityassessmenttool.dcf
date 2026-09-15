@@ -1,0 +1,10 @@
+name: bidoversityassessmenttool
+title:
+username: ab-wildlife
+account: ab-wildlife
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17864129
+bundleId: 12555006
+url: https://ab-wildlife.shinyapps.io/bidoversityassessmenttool/
+version: 1

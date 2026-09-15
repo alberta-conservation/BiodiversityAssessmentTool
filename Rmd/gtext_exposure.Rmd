@@ -1,0 +1,15 @@
+---
+title: "exposure"
+output: html_document
+---
+
+The 'Exposure' tool allows users to view the distribution of the species within BCR 6 and access the exposure metrics at the OSR-level and at the level of the individual lease. 
+
+##### Area of interest (AOI) and lease holder selection
+
+- **Step 1.** Select the AOI from the checklist (The Production Fields can be viewed on the initial map by hovering over it with the curser). 
+
+- **Step 2.** Select the lease holder from the dropdown list. The list of lease holders should only include those in the selected AOI. 
+
+- **Step 3.** View the density distributions and risk estimates in the plots. 
+

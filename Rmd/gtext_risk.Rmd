@@ -1,0 +1,15 @@
+---
+title: "risk"
+output: html_document
+---
+
+The risk assessment tool allows users to view the potential population outcomes (Density Distributions) and risks of a range of percentages of population decline (Risk Estimates) under different climate and land-use scenarios, relative to a baseline scenario of no oil sands development and historic climate, for the selected species. 
+
+##### Area of interest (AOI) and lease holder selection
+
+- **Step 1.** Select the lease holder from the dropdown list. 
+
+- **Step 2.** Select the AOI from the checklist (The Production Fields can be viewed on the initial map). 
+
+- **Step 3.** Toggle between the distributions and risk estimates, and download the risk data using the button on the right pane.  
+
