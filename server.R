@@ -247,15 +247,23 @@ server <- function(input, output, session){
       vuln_data = vuln_dat()
     )
     
-    rmarkdown::render(
+    report_path <- reactiveVal(NULL)
+    
+    report_dir <- tempfile("vulnerability_report_")
+    dir.create(report_dir)
+    
+    report_html <- rmarkdown::render(
       input = "www/vulnerability_report.Rmd",
       output_format = "html_document",
       output_file = "vulnerability.html",
-      output_dir = "www",
+      output_dir = report_dir,
       params = params,
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
+    
+    report_path(report_html)
+    
     report_ready(TRUE)
     report_version(report_version() + 1)
   })
@@ -284,7 +292,7 @@ server <- function(input, output, session){
     osr_risk <- osr_risk_data[which(names(osr_risk_data) == spp_code())][[1]]
     risk_area(input$lease_name) 
     
-    if(risk_area() == "Total area"){
+    if(risk_area() == "Full OSR"){
       risk_stats <- osr_risk
     }else if(risk_area() == "All leases"){
       risk_stats <- risk_results |> 
