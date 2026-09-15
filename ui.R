@@ -168,9 +168,7 @@ tagList(
              conditionalPanel(
                condition = "input.tabs == 'vulnerability'",
                div(id = "markdown-content", includeMarkdown("Rmd/data_download_tab.md")),
-               actionButton(inputId = "dwnld_dta", 
-                            label = "Download Data", 
-                            style="width: 250px;"), 
+               uiOutput("download_data_ui"), 
                uiOutput("download_report_ui")
              ), 
              conditionalPanel(

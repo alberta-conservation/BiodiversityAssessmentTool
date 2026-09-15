@@ -331,6 +331,47 @@ server <- function(input, output, session){
     
   })
   
+  output$download_data_ui <- renderUI({
+    req(report_ready())
+    downloadButton("dwd_data", "Download data", style="margin-top: 20px;  width: 250px;")
+  })
+  
+  output$dwd_data <- downloadHandler(
+    filename = function() {
+      paste0("vulnerability-", input$spp, "-", input$prod_field, "-", input$app_holder, "-", Sys.Date(), ".zip")
+    },
+    
+    content = function(file) {
+      
+      showModal(modalDialog("Preparing download...", footer = NULL))
+      on.exit(removeModal(), add = TRUE)
+      
+      #set temp folder
+      tmpdir <- tempfile("vulnerability_")
+      dir.create(tmpdir)
+      
+      # write in temp
+      reference_exposure <- exp_ref()
+      current_exposure <- exp_current()
+      st_write(reference_exposure, dsn = file.path(tmpdir, "reference_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
+      st_write(current_exposure, dsn = file.path(tmpdir, "current_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
+      
+      r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
+      r2 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
+      writeRaster(r1, filename = file.path(tmpdir, "reference_sdm_osr.tif"))
+      writeRaster(r2, filename = file.path(tmpdir, "exposure_osr.tif"))
+
+      # Zip everything
+      oldwd <- getwd()
+      setwd(tmpdir)
+      on.exit(setwd(oldwd), add = TRUE)
+      
+      # return the zip folder
+      zip::zipr(zipfile = file, files = dir(tmpdir, full.names = FALSE))
+    }
+    
+  )
+  
   output$download_report_ui <- renderUI({
     req(report_ready())
     downloadButton("dwd_report", "Download report", style="margin-top: 20px;  width: 250px;")
