@@ -10,12 +10,10 @@ server <- function(input, output, session){
   risk_area <- reactiveVal(NULL)
   
   
-  options(
-    chromote.chrome_args = c(
-      "--no-sandbox",
-      "--disable-dev-shm-usage"
-    )
+  Sys.setenv(
+    CHROMOTE_CHROME_ARGS = "--no-sandbox --disable-dev-shm-usage"
   )
+  
   
   message("Chromote info:")
   print(chromote::chromote_info())
@@ -424,15 +422,11 @@ server <- function(input, output, session){
     content = function(file) {
       req(isTRUE(report_ready()))
       
-      #html_file <- normalizePath(
-      #  file.path("www", "vulnerability.html"),
-      #  winslash = "/",
-      #  mustWork = TRUE
-      #)
-      html_file <- file.path("www", "vulnerability.html")
-      #print(html_file)
-      #print(file)
-      #print(file.exists(html_file))
+      html_file <- normalizePath(
+        file.path("www", "vulnerability.html"),
+        winslash = "/",
+        mustWork = TRUE
+      )
       
       webshot2::webshot(
         url = html_file,
