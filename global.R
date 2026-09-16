@@ -18,6 +18,7 @@ library(tidyverse)
 library(flextable)
 library(officer)
 library(ggplot2)
+library(webshot2)
 
 
 load("www/data/sysdata.rda")
