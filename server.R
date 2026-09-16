@@ -405,26 +405,25 @@ server <- function(input, output, session){
     },
     contentType = "application/pdf",
     content = function(file) {
-      
       req(isTRUE(report_ready()))
       
-      html_file <- normalizePath(
-        file.path("www", "vulnerability.html"),
-        winslash = "/",
-        mustWork = TRUE
-      )
-      
-      print(html_file)
-      print(file)
-      print(file.exists(html_file))
+      #html_file <- normalizePath(
+      #  file.path("www", "vulnerability.html"),
+      #  winslash = "/",
+      #  mustWork = TRUE
+      #)
+      html_file <- file.path("www", "vulnerability.html")
+      #print(html_file)
+      #print(file)
+      #print(file.exists(html_file))
       
       webshot2::webshot(
-        url = paste0("file:///", html_file),
+        url = html_file,
         file = file,
         vwidth = 1200,
         vheight = 900
       )
     }
   )
-  
 }
+
