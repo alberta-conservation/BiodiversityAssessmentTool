@@ -8,6 +8,23 @@ server <- function(input, output, session){
   report_version <- reactiveVal(FALSE)
   report_ready <- reactiveVal(FALSE)
   risk_area <- reactiveVal(NULL)
+  
+  
+  options(
+    chromote.chrome_args = c(
+      "--no-sandbox",
+      "--disable-dev-shm-usage"
+    )
+  )
+  
+  message("Chromote info:")
+  print(chromote::chromote_info())
+  
+  message("webshot2 version: ", packageVersion("webshot2"))
+  message("chromote version: ", packageVersion("chromote"))
+  
+  
+  
   ################################################################################################
   # RELOAD
   observeEvent(input$reload_btn, {
