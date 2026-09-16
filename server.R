@@ -10,6 +10,11 @@ server <- function(input, output, session){
   risk_area <- reactiveVal(NULL)
   
   
+  Sys.setenv(
+    CHROMOTE_CHROME_ARGS = "--no-sandbox --disable-dev-shm-usage"
+  )
+  
+  
   message("Chromote info:")
   print(chromote::chromote_info())
   
@@ -422,6 +427,11 @@ server <- function(input, output, session){
         winslash = "/",
         mustWork = TRUE
       )
+      
+      message("CHROMOTE_CHROME_ARGS = ",
+              Sys.getenv("CHROMOTE_CHROME_ARGS"))
+      
+      print(chromote::chromote_info())
       
       webshot2::webshot(
         url = html_file,
