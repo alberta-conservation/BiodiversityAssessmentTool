@@ -428,6 +428,11 @@ server <- function(input, output, session){
         mustWork = TRUE
       )
       
+      message("CHROMOTE_CHROME_ARGS = ",
+              Sys.getenv("CHROMOTE_CHROME_ARGS"))
+      
+      print(chromote::chromote_info())
+      
       webshot2::webshot(
         url = html_file,
         file = file,
