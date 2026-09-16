@@ -149,9 +149,9 @@ server <- function(input, output, session){
     b <- st_bbox(osr)
     
     cf <- exp_ref()
-    cf_pt <- st_centroid(exp_ref())
+    cf_pt <- st_centroid(st_make_valid(exp_ref()))
     cfc <- exp_current()
-    cfc_pt <- st_centroid(exp_current())
+    cfc_pt <- st_centroid(st_make_valid(exp_current()))
     
     # Create the labels for the leases from the data files
     labels <- sprintf(
