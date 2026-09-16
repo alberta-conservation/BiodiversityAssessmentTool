@@ -44,6 +44,15 @@ server <- function(input, output, session){
     )
   })
   
+  observeEvent(input$prod_field, {
+    holders <- lease_osa_matrix |>
+      dplyr::filter(osa == toupper(input$prod_field)) |>
+      dplyr::pull(lease_holder) |>
+      unique()
+    
+    updateSelectInput(session, "app_holder", choices = holders, selected = holders[1])
+  })
+  
   observeEvent(input$spp, {
     report_ready(FALSE)
   })
@@ -58,9 +67,9 @@ server <- function(input, output, session){
     ) %>% lapply(htmltools::HTML)
     
     pal <- colorNumeric(palette = "Spectral", domain = values(r), na.color = "transparent")
-    leaflet() %>%
+    map <- leaflet() %>%
       addMapPane(name = "ground", zIndex=380) %>%
-      addProviderTiles("CartoDB.Positron", group="baseMap")|> 
+      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
       # Fit bounds to BCR 6S extent and add the osr area polygons
       fitBounds(lng1 = -116.0, lat1 = 50, lng2 = -105.0, lat2 = 58) |> 
       addRasterImage(r$mean, colors = "viridis", opacity = 0.8) |> 
@@ -76,21 +85,29 @@ server <- function(input, output, session){
         data = osr, 
         fillColor = NA, 
         fillOpacity = 0,
-        weight = 4, 
+        weight = 2, 
         color = "red", 
         dashArray = "3", 
         highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
         label = ~Area_Name
       )
+    
+    if(!is.null(input$prod_field)){
+      osr_selected <- osr |>
+        dplyr::filter(Area_Name %in% input$prod_field)
+      map <- map |>
+        addPolygons(data = osr_selected,  fillColor = NA, fillOpacity = 0, weight = 4, color = "red", group = "selected_osr")
+    }
+    map
   })
   
   # Create the current exposure map for the OSR using the ABMI prediction map
   output$map_current <- renderLeaflet({
     rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
     pal <- colorNumeric(palette = "Spectral", domain = values(rc), na.color = "transparent")
-    leaflet() %>%
-      addMapPane(name = "ground", zIndex=380) %>%
-      addProviderTiles("CartoDB.Positron", group="baseMap") %>%
+    leaflet() |>
+      addMapPane(name = "ground", zIndex=380) |>
+      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |>
       # Fit bounds to BCR 6S extent
       fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
       addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
@@ -130,6 +147,7 @@ server <- function(input, output, session){
     exp_current(lease_exp_current |> filter(spp == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID & osa == input$prod_field & lease_holder == input$app_holder) |> 
                   mutate(common_name = input$spp))
     b <- st_bbox(osr)
+    
     cf <- exp_ref()
     cf_pt <- st_centroid(exp_ref())
     cfc <- exp_current()
@@ -151,7 +169,7 @@ server <- function(input, output, session){
       clearMarkers() |> 
       clearShapes() |> 
       addMapPane(name = "ground", zIndex=380) |> 
-      addProviderTiles("CartoDB.Positron", group="baseMap") |> 
+      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
       fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
       addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
       addPolygons(
@@ -181,7 +199,7 @@ server <- function(input, output, session){
       clearMarkers() |> 
       clearShapes() |> 
       addMapPane(name = "ground", zIndex=380) |> 
-      addProviderTiles("CartoDB.Positron", group="baseMap") |> 
+      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
       fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
       addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
       addPolygons(

@@ -39,6 +39,10 @@ linear_eff <- read.csv("www/data/linear_coefficients_forest.csv")
 #lease_exp_current <- st_transform(lease_exp_current, crs = 4326) |> 
 #  mutate(osa = replace_values(osa, "ATHABASCA" ~ "Athabasca", "COLD LAKE" ~ "Cold Lake", "PEACE RIVER AREA 1" ~ "Peace River Area 1", "PEACE RIVER AREA 2" ~ "Peace River Area 2"))
 
+lease_osa_matrix <- lease_exp_ref |>
+  sf::st_drop_geometry() |>
+  dplyr::distinct(osa, lease_holder)
+
 lease_exp_current <- lease_exp_current |>
   st_transform(crs = 4326) |>
   mutate(
