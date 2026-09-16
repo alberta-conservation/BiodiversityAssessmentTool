@@ -247,23 +247,15 @@ server <- function(input, output, session){
       vuln_data = vuln_dat()
     )
     
-    report_path <- reactiveVal(NULL)
-    
-    report_dir <- tempfile("vulnerability_report_")
-    dir.create(report_dir)
-    
-    report_html <- rmarkdown::render(
+    rmarkdown::render(
       input = "www/vulnerability_report.Rmd",
       output_format = "html_document",
       output_file = "vulnerability.html",
-      output_dir = report_dir,
+      output_dir = "www",
       params = params,
       quiet = TRUE,
       envir = new.env(parent = globalenv())
     )
-    
-    report_path(report_html)
-    
     report_ready(TRUE)
     report_version(report_version() + 1)
   })
@@ -387,18 +379,34 @@ server <- function(input, output, session){
   
   output$dwd_report <- downloadHandler(
     filename = function() {
-      paste0("Vulnerability_Assessment_", gsub(" ", "_", input$spp),".pdf")
+      paste0(
+        "Vulnerability_Assessment_",
+        gsub(" ", "_", input$spp),
+        ".pdf"
+      )
     },
     contentType = "application/pdf",
     content = function(file) {
+      
       req(isTRUE(report_ready()))
-      html_file <- file.path("www", "vulnerability.html")
+      
+      html_file <- normalizePath(
+        file.path("www", "vulnerability.html"),
+        winslash = "/",
+        mustWork = TRUE
+      )
+      
+      print(html_file)
+      print(file)
+      print(file.exists(html_file))
+      
       webshot2::webshot(
-        url = html_file,
+        url = paste0("file:///", html_file),
         file = file,
         vwidth = 1200,
         vheight = 900
       )
     }
   )
+  
 }
