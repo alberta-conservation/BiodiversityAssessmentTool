@@ -19,6 +19,7 @@ library(flextable)
 library(officer)
 library(ggplot2)
 library(webshot2)
+library(chromote)
 
 
 load("www/data/sysdata.rda")
