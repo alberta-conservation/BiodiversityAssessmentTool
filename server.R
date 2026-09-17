@@ -1,6 +1,12 @@
 # Define server logic
 server <- function(input, output, session){
   
+  # Add this at the beginning of your app script
+  if (Sys.getenv("R_CONFIG_ACTIVE") == "shinyapps" || identical(Sys.getenv("CONNECT_CLOUD"), "true") || TRUE) {
+    options(chromote.args = c("--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"))
+  }
+  
+  
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
   spp_code <- reactiveVal(NULL)
@@ -407,7 +413,7 @@ server <- function(input, output, session){
       req(isTRUE(report_ready()))
       html_file <- file.path("www", "vulnerability.html")
       
-      options( chromote.chrome_args = c( "--headless", "--no-sandbox", "--disable-dev-shm-usage" ) )
+      # options( chromote.chrome_args = c( "--headless", "--no-sandbox", "--disable-dev-shm-usage" ) )
       webshot2::webshot(
         url = html_file,
         file = file,
