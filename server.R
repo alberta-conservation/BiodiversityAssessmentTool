@@ -8,21 +8,6 @@ server <- function(input, output, session){
   report_version <- reactiveVal(FALSE)
   report_ready <- reactiveVal(FALSE)
   risk_area <- reactiveVal(NULL)
-  
-  
-  Sys.setenv(
-    CHROMOTE_CHROME_ARGS = "--no-sandbox --disable-dev-shm-usage"
-  )
-  
-  
-  message("Chromote info:")
-  print(chromote::chromote_info())
-  
-  message("webshot2 version: ", packageVersion("webshot2"))
-  message("chromote version: ", packageVersion("chromote"))
-  
-  
-  
   ################################################################################################
   # RELOAD
   observeEvent(input$reload_btn, {
@@ -116,13 +101,16 @@ server <- function(input, output, session){
     map
   })
   
+  
+  
+  
   # Create the current exposure map for the OSR using the ABMI prediction map
   output$map_current <- renderLeaflet({
     rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
     pal <- colorNumeric(palette = "Spectral", domain = values(rc), na.color = "transparent")
-    leaflet() |>
-      addMapPane(name = "ground", zIndex=380) |>
-      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |>
+    leaflet() %>%
+      addMapPane(name = "ground", zIndex=380) %>%
+      addProviderTiles("CartoDB.Positron", group="baseMap") %>%
       # Fit bounds to BCR 6S extent
       fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
       addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
@@ -412,27 +400,14 @@ server <- function(input, output, session){
   
   output$dwd_report <- downloadHandler(
     filename = function() {
-      paste0(
-        "Vulnerability_Assessment_",
-        gsub(" ", "_", input$spp),
-        ".pdf"
-      )
+      paste0("Vulnerability_Assessment_", gsub(" ", "_", input$spp),".pdf")
     },
     contentType = "application/pdf",
     content = function(file) {
       req(isTRUE(report_ready()))
+      html_file <- file.path("www", "vulnerability.html")
       
-      html_file <- normalizePath(
-        file.path("www", "vulnerability.html"),
-        winslash = "/",
-        mustWork = TRUE
-      )
-      
-      message("CHROMOTE_CHROME_ARGS = ",
-              Sys.getenv("CHROMOTE_CHROME_ARGS"))
-      
-      print(chromote::chromote_info())
-      
+      options( chromote.chrome_args = c( "--headless", "--no-sandbox", "--disable-dev-shm-usage" ) )
       webshot2::webshot(
         url = html_file,
         file = file,
@@ -442,4 +417,3 @@ server <- function(input, output, session){
     }
   )
 }
-
