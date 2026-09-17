@@ -419,7 +419,7 @@ server <- function(input, output, session){
       
       tmp_html <- tempfile(fileext = ".html")
       
-      file.copy(file.path("www", "preview.html"), tmp_html, overwrite = TRUE)
+      file.copy(file.path("www", "vulnerability.html"), tmp_html, overwrite = TRUE)
       
       req(file.exists(tmp_html))
       
