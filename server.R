@@ -416,16 +416,18 @@ server <- function(input, output, session){
     },
     contentType = "application/pdf",
     content = function(file) {
+      req(isTRUE(report_ready()))
+      # html_file <- file.path("www", "vulnerability.html")
       
-      tmp_html <- tempfile(fileext = ".html")
+      temp_html <- tempfile(fileext = ".html")
       
-      file.copy(file.path("www", "vulnerability.html"), tmp_html, overwrite = TRUE)
+      htmltools::save_html(vulnerability_report(), temp_html)
       
-      req(file.exists(tmp_html))
-      
-      pagedown::chrome_print(
-        input  = normalizePath(tmp_html, winslash = "/", mustWork = TRUE),
-        output = file
+      webshot2::webshot(
+        url = temp_html,
+        file = file,
+        vwidth = 1200,
+        vheight = 900
       )
     }
   )
