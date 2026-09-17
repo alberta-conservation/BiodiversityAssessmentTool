@@ -6,10 +6,6 @@ server <- function(input, output, session){
     options(chromote.args = c("--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"))
   }
   
-  packageVersion("webshot2")
-  packageVersion("chromote")
-  chromote::chromote_info()
-  
   
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
@@ -19,6 +15,12 @@ server <- function(input, output, session){
   report_ready <- reactiveVal(FALSE)
   risk_area <- reactiveVal(NULL)
   ################################################################################################
+  
+  
+  packageVersion("webshot2")
+  packageVersion("chromote")
+  chromote::chromote_info()
+  
   # RELOAD
   observeEvent(input$reload_btn, {
     showModal(
@@ -414,18 +416,16 @@ server <- function(input, output, session){
     },
     contentType = "application/pdf",
     content = function(file) {
-      req(isTRUE(report_ready()))
-      html_file <- file.path("www", "vulnerability.html")
       
-      options(
-        chromote.chrome_args = c("--no-sandbox")
-      )
+      tmp_html <- tempfile(fileext = ".html")
       
-      webshot2::webshot(
-        url = html_file,
-        file = file,
-        vwidth = 1200,
-        vheight = 900
+      file.copy(file.path("www", "preview.html"), tmp_html, overwrite = TRUE)
+      
+      req(file.exists(tmp_html))
+      
+      pagedown::chrome_print(
+        input  = normalizePath(tmp_html, winslash = "/", mustWork = TRUE),
+        output = file
       )
     }
   )
