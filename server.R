@@ -6,6 +6,10 @@ server <- function(input, output, session){
     options(chromote.args = c("--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"))
   }
   
+  packageVersion("webshot2")
+  packageVersion("chromote")
+  chromote::chromote_info()
+  
   
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
@@ -413,7 +417,10 @@ server <- function(input, output, session){
       req(isTRUE(report_ready()))
       html_file <- file.path("www", "vulnerability.html")
       
-      # options( chromote.chrome_args = c( "--headless", "--no-sandbox", "--disable-dev-shm-usage" ) )
+      options(
+        chromote.chrome_args = c("--no-sandbox")
+      )
+      
       webshot2::webshot(
         url = html_file,
         file = file,
