@@ -182,7 +182,7 @@ tagList(
       column(12,  
              conditionalPanel(
                condition = "input.tabs == 'vulnerability'", 
-               uiOutput("vulnerability_report")
+               
              ) # conditionalPanel(
       ) # column(12,
     )

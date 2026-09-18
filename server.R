@@ -265,6 +265,22 @@ server <- function(input, output, session){
     linear_sensitivity <- reactive({linear_eff |> filter(Common_Name == input$spp)})
     vuln_dat <- reactive({vulnerability_data |> filter(CommonName == input$spp)})
     
+    cf <- exp_ref()
+    cf_pt <- st_centroid(st_make_valid(exp_ref()))
+    cfc <- exp_current()
+    cfc_pt <- st_centroid(st_make_valid(exp_current()))
+    
+    # Create the labels for the leases from the data files
+    labels <- sprintf(
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+      cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+    ) %>% lapply(htmltools::HTML)
+    
+    labels_current <- sprintf(
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+      cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
+    ) %>% lapply(htmltools::HTML)
+    
     params <- list(
       bird = input$spp,
       SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
@@ -277,7 +293,11 @@ server <- function(input, output, session){
       production_field = osr |> filter(Area_Name == input$prod_field), 
       sector_sens = sector_sensitivity(), 
       linear_sens = linear_sensitivity(),
-      vuln_data = vuln_dat()
+      vuln_data = vuln_dat(), 
+      cf_pt = cf_pt, 
+      labels = labels, 
+      cfc_pt = cfc_pt, 
+      labels_current = labels_current
     )
     
     rmarkdown::render(
@@ -291,6 +311,8 @@ server <- function(input, output, session){
     )
     report_ready(TRUE)
     report_version(report_version() + 1)
+    
+    
   })
   
   
@@ -366,7 +388,7 @@ server <- function(input, output, session){
   
   output$download_data_ui <- renderUI({
     req(report_ready())
-    downloadButton("dwd_data", "Download data", style="margin-top: 20px;  width: 250px;")
+    downloadButton("dwd_data", "Download data and report", style="margin-top: 20px;  width: 250px;")
   })
   
   output$dwd_data <- downloadHandler(
@@ -383,6 +405,8 @@ server <- function(input, output, session){
       tmpdir <- tempfile("vulnerability_")
       dir.create(tmpdir)
       
+      
+      
       # write in temp
       reference_exposure <- exp_ref()
       current_exposure <- exp_current()
@@ -393,6 +417,57 @@ server <- function(input, output, session){
       r2 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
       writeRaster(r1, filename = file.path(tmpdir, "reference_sdm_osr.tif"))
       writeRaster(r2, filename = file.path(tmpdir, "exposure_osr.tif"))
+      
+      sector_sensitivity <- reactive({sector_eff |> filter(Common_Name == input$spp)})
+      linear_sensitivity <- reactive({linear_eff |> filter(Common_Name == input$spp)})
+      vuln_dat <- reactive({vulnerability_data |> filter(CommonName == input$spp)})
+      
+      cf <- exp_ref()
+      cf_pt <- st_centroid(st_make_valid(exp_ref()))
+      cfc <- exp_current()
+      cfc_pt <- st_centroid(st_make_valid(exp_current()))
+      
+      # Create the labels for the leases from the data files
+      labels <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+        cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      labels_current <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+        cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      params <- list(
+        bird = input$spp,
+        SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
+        osa = input$prod_field,
+        lease_holder = input$app_holder,
+        reference_rast = r1,
+        exposure_rast = r2,
+        current_sf = exp_current(),
+        reference_sf = exp_ref(),
+        production_field = osr |> filter(Area_Name == input$prod_field), 
+        sector_sens = sector_sensitivity(), 
+        linear_sens = linear_sensitivity(),
+        vuln_data = vuln_dat(), 
+        cf_pt = cf_pt, 
+        labels = labels, 
+        cfc_pt = cfc_pt, 
+        labels_current = labels_current
+      )
+      
+      # Render the Rmd to a .pdf for downloading
+      rmarkdown::render(
+        input = "www/vulnerability_report.Rmd",
+        output_format = "html_document",
+        output_file = "vulnerability_report.html",
+        output_dir = tmpdir,
+        params = params,
+        quiet = TRUE,
+        envir = new.env(parent = globalenv())
+      )
+      
 
       # Zip everything
       oldwd <- getwd()
@@ -405,30 +480,4 @@ server <- function(input, output, session){
     
   )
   
-  output$download_report_ui <- renderUI({
-    req(report_ready())
-    downloadButton("dwd_report", "Download report", style="margin-top: 20px;  width: 250px;")
-  })
-  
-  output$dwd_report <- downloadHandler(
-    filename = function() {
-      paste0("Vulnerability_Assessment_", gsub(" ", "_", input$spp),".pdf")
-    },
-    contentType = "application/pdf",
-    content = function(file) {
-      req(isTRUE(report_ready()))
-      # html_file <- file.path("www", "vulnerability.html")
-      
-      temp_html <- tempfile(fileext = ".html")
-      
-      htmltools::save_html(vulnerability_report(), temp_html)
-      
-      webshot2::webshot(
-        url = temp_html,
-        file = file,
-        vwidth = 1200,
-        vheight = 900
-      )
-    }
-  )
 }

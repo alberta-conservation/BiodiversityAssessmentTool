@@ -5026,7 +5026,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "d333096379526062c82e0f1cf47e031e"
+      "checksum": "36c9bc384b37371e5acd22c6bc4e2425"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -5047,7 +5047,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "8a82658b1589034ef3f97696ef4e9ca0"
+      "checksum": "0b7eeddf91fa588705e4cf79c4ebe4c6"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -6901,7 +6901,7 @@
       "checksum": "4017f41c1d7d6b2fafa7cc6e430d52e1"
     },
     "www/vulnerability.html": {
-      "checksum": "a8b148de9d7cf76ee328fd1137c90289"
+      "checksum": "13f1e3b71be990b723dfb4e226f55377"
     },
     "www/vulnerability_data.csv": {
       "checksum": "f5c37106f9e8bdd89fff9c36ac074920"
@@ -6910,7 +6910,10 @@
       "checksum": "e930479f1ca97dc622cf9c83415a22c2"
     },
     "www/vulnerability_report.Rmd": {
-      "checksum": "4da54f2578648d1b8e259928a6b1d34c"
+      "checksum": "c259c730411a5785d642f8cdfa5871dd"
+    },
+    "www/vulnerability_report_pdf.Rmd": {
+      "checksum": "5d4482a08da309700a7c0e96730bf3be"
     },
     "www/vulnerability_report_to_update.Rmd": {
       "checksum": "ac45dcd81fb98affa3e9441cc4b9aa71"
