@@ -1,11 +1,38 @@
+---
+runtime: shiny
+---
+
 <left>
 
-# Pileated Woodpecker
+# Pileated Woodpecker (*Dryocopus pileatus*)
 
-</left>
+<br>
+
+\::::: {style = "display: flex; gap: 10px;"}
+
+::: {style="flex: 47.5%;"}
+![](../../www/piwo.png){width="100%"}
+:::
+
+::: {style="flex: 5%;"}
+:::
+
+::: {style="flex: 47.5%;"}
+## **CONSERVATION STATUS**
+
+- <abbr title="Committee on the Status of Endangered Wildlife in Canada">COSEWIC</abbr> Status: None
+
+- <abbr title="Alberta's Endangered Species Conservation Committee">ESCC</abbr> Status in Alberta: None
+
+- <abbr title="Government of Alberta's general status of wildlife species">General</abbr> Status in Alberta: Sensitive
+
+* <abbr title="Alberta Conservation Information Management System">ACIMS</abbr> Status in  Alberta: [<span style="color: white;"><u>S4</u></span>](https://www.alberta.ca/acims-conservation-status-ranks#jumplinks-1) 
+
+* [<span style="color: white;"><u>Link to **ABMI Status** Page</u></span>](https://abmi.ca/species/pileated-woodpecker)
+:::
+
+\:::::
 
 <br>
 
 ## Overview
-
-This page is currently under construction. It will contain an account of the conservation challenges for Pileated Woodpeckers from Oil Sands development. 

@@ -233,7 +233,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_piwo_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_piwo_tab.Rmd")))
     )
   ), 
   
