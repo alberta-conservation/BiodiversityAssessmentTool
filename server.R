@@ -386,6 +386,9 @@ server <- function(input, output, session){
     
   })
   
+  ## *******************************************************************************
+  # Downloads for the vulnerability assessment tab ---------------------------------
+  ## *******************************************************************************
   output$download_data_ui <- renderUI({
     req(report_ready())
     downloadButton("dwd_data", "Download data and report", style="margin-top: 20px;  width: 250px;")
@@ -477,7 +480,28 @@ server <- function(input, output, session){
       # return the zip folder
       zip::zipr(zipfile = file, files = dir(tmpdir, full.names = FALSE))
     }
+  )
+  
+  # *******************************************************************************
+  # Downloads for the risk assessment tab -----------------------------------------
+  ## ******************************************************************************
+  output$download_risk_data_ui <- renderUI({
+    req(report_ready())
+    downloadButton("dwd_risk_data", "Download data and report", style="margin-top: 20px;  width: 250px;")
+  })  
+  
+  output$dwd_data <- downloadHandler(
+    filename = function() {
+      paste0("risk-assessment-", input$risk_spp, "-", input$lease_name, "-", Sys.Date(), ".zip")
+    },
+    
+    content = function(file) {
+      
+    }
+    
     
   )
+    
+    
   
 }
