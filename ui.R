@@ -120,12 +120,7 @@ tagList(
                           div(actionButton(inputId = "spp_lease", 
                                        label = "Show selected species and area", 
                                        icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
-                                       style="width:200px")), 
-                          
-                          div(actionButton(inputId = "render_risk_report", 
-                                       label = "Create report", 
-                                       style="margin-top: 20px; width: 200px;"
-                          ))
+                                       style="width:200px"))
                  ), 
                  tabPanel("Instructions", 
                           icon = icon("circle-info"), 
@@ -214,7 +209,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_soc_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_soc_temp_tab.md")))
     )
   ), 
   
@@ -230,7 +225,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_piwo_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_piwo_tab.Rmd")))
     )
   ), 
   
@@ -246,7 +241,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_yera_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_yera_temp_tab.md")))
     )
   ), 
   
@@ -262,7 +257,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_rubl_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_rubl_temp_tab.md")))
     )
   ), 
   
@@ -278,7 +273,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_cato_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_cato_temp_tab.md")))
     )
   ), 
   
@@ -294,7 +289,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_stgr_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_stgr_temp_tab.md")))
     )
   ), 
   conditionalPanel(
@@ -309,7 +304,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/soc/text_whcr_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_whcr_temp_tab.md")))
     )
   ), 
   

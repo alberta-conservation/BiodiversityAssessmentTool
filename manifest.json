@@ -4918,7 +4918,7 @@
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
     "global.R": {
-      "checksum": "1fe0d9806499abe315c1931b5804db3a"
+      "checksum": "2c4a485bb1af2f31d77e1aa1e4a6b12c"
     },
     "Rmd/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -4950,25 +4950,34 @@
     "Rmd/select_areas_tab.md": {
       "checksum": "88d97566289443484e752f227c6e7072"
     },
-    "Rmd/soc/text_cato_temp_tab.md": {
+    "Rmd/sosc/PIWO 2-pager.docx": {
+      "checksum": "58f8249acf0b191b5514664d661df99a"
+    },
+    "Rmd/sosc/text_cato_temp_tab.md": {
       "checksum": "e2f1792c6dfd866c773b80e3df38883d"
     },
-    "Rmd/soc/text_piwo_temp_tab.md": {
+    "Rmd/sosc/text_piwo_tab.Rmd": {
+      "checksum": "c281637a54126d0c0ccac531b373fbf0"
+    },
+    "Rmd/sosc/text_piwo_temp_tab.md": {
       "checksum": "da266a1f572f2ed2c8d8340592c6f858"
     },
-    "Rmd/soc/text_rubl_temp_tab.md": {
+    "Rmd/sosc/text_rubl_temp_tab.md": {
       "checksum": "1ec372549e33240f978eb06092467b68"
     },
-    "Rmd/soc/text_soc_temp_tab.md": {
+    "Rmd/sosc/text_soc_temp_tab.md": {
       "checksum": "ab119f5472947a68c9fc009f015fbca1"
     },
-    "Rmd/soc/text_stgr_temp_tab.md": {
+    "Rmd/sosc/text_stgr_temp_tab.md": {
       "checksum": "735e05ea62087478e10289b18e18ef7c"
     },
-    "Rmd/soc/text_whcr_temp_tab.md": {
+    "Rmd/sosc/text_whcr_tab.Rmd": {
+      "checksum": "17e08163b7a60f66e59ab4c132dcbb9e"
+    },
+    "Rmd/sosc/text_whcr_temp_tab.md": {
       "checksum": "c6a73b6c3e1a271db4b6e12629fe0970"
     },
-    "Rmd/soc/text_yera_temp_tab.md": {
+    "Rmd/sosc/text_yera_temp_tab.md": {
       "checksum": "aa3f6619cbda127b87dfacf02c71c717"
     },
     "Rmd/spp_accounts/text_spp_AlderFlycatcher.md": {
@@ -5026,7 +5035,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "36c9bc384b37371e5acd22c6bc4e2425"
+      "checksum": "31aac217c1d75f2699a77bcdb1b8b5ff"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -5047,7 +5056,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "0b7eeddf91fa588705e4cf79c4ebe4c6"
+      "checksum": "90ff847cfb9d67d768c043c32ee74726"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -5328,14 +5337,23 @@
     "www/data/osr_risk_data.rda": {
       "checksum": "c7be3cf0ba01a67425f9bd8cc5ba0a1f"
     },
+    "www/data/osr_risk_data_36.rda": {
+      "checksum": "9f9ff5e6de9b23446a4f62091d80ba19"
+    },
     "www/data/risk_leases.rda": {
       "checksum": "04df02714b75791cb422a03345800e62"
     },
     "www/data/risk_results_list.rda": {
       "checksum": "21e5fb939e3cbea3d92badd290430c21"
     },
+    "www/data/risk_results_list_36.rda": {
+      "checksum": "de90fa9f958611afa24682000fca2f99"
+    },
     "www/data/spp_lease_results_list.Rdata": {
       "checksum": "5fcac2fd8847594479582c9bb8ad2a3b"
+    },
+    "www/data/spp_lease_results_list_36.Rdata": {
+      "checksum": "f2d48b23a978d2c2ddcce51b5df23260"
     },
     "www/data/sysdata.rda": {
       "checksum": "9b1b4e18ae8a9a8c4c6080ab51fd06ba"
@@ -5645,6 +5663,9 @@
     },
     "www/oven.jpg": {
       "checksum": "3f5fed9175a0eb3824837dd53a287b0e"
+    },
+    "www/piwo.png": {
+      "checksum": "5ac694acb5d38d18c816adea6a6b3a5c"
     },
     "www/rcki.jpg": {
       "checksum": "629b83626d4f1f719ff879828ba13cb7"

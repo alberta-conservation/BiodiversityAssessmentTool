@@ -14,12 +14,9 @@ server <- function(input, output, session){
   report_version <- reactiveVal(FALSE)
   report_ready <- reactiveVal(FALSE)
   risk_area <- reactiveVal(NULL)
+  risk_report_ready <- reactiveVal(FALSE)
   ################################################################################################
   
-  
-  packageVersion("webshot2")
-  packageVersion("chromote")
-  chromote::chromote_info()
   
   # RELOAD
   observeEvent(input$reload_btn, {
@@ -331,6 +328,10 @@ server <- function(input, output, session){
     )
   })
   
+  observeEvent(input$risk_spp, {
+    risk_report_ready(FALSE)
+  })
+  
   observeEvent(input$spp_lease, {
     showNotification("Processing data for your report...", type = "message")
     
@@ -382,7 +383,9 @@ server <- function(input, output, session){
         theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20), 
               axis.text = element_text(size = 15), legend.text = element_text(size = 15), 
               legend.title = element_text(size = 20)) + ylim(c(0, 1))
-    }) 
+    })
+    
+    risk_report_ready(TRUE)
     
   })
   
@@ -486,19 +489,60 @@ server <- function(input, output, session){
   # Downloads for the risk assessment tab -----------------------------------------
   ## ******************************************************************************
   output$download_risk_data_ui <- renderUI({
-    req(report_ready())
+    req(risk_report_ready())
     downloadButton("dwd_risk_data", "Download data and report", style="margin-top: 20px;  width: 250px;")
   })  
   
-  output$dwd_data <- downloadHandler(
+  output$dwd_risk_data <- downloadHandler(
     filename = function() {
       paste0("risk-assessment-", input$risk_spp, "-", input$lease_name, "-", Sys.Date(), ".zip")
     },
     
     content = function(file) {
       
+      showModal(modalDialog("Preparing download...", footer = NULL))
+      on.exit(removeModal(), add = TRUE)
+      
+      #set temp folder
+      tmpdir <- tempfile("risk_")
+      dir.create(tmpdir)
+      
+      # write in temp
+      spp_code(vulnerability_table$SpeciesID[which(vulnerability_table$CommonName == input$risk_spp)]) 
+      risk_results <- risk_results_list[which(names(risk_results_list) == spp_code())][[1]] 
+      osr_risk <- osr_risk_data[which(names(osr_risk_data) == spp_code())][[1]]
+      risk_area(input$lease_name) 
+      
+      if(risk_area() == "Full OSR"){
+        risk_stats <- osr_risk
+      }else if(risk_area() == "All leases"){
+        risk_stats <- risk_results |> 
+          group_by(scenario, iter) |> 
+          summarise(pop_size = sum(pop_size))
+      }else{
+        risk_stats <- risk_results |> 
+          filter(lease_name == risk_area())
+      }
+      
+      dectab <- do.call(cbind, lapply(2:length(scenario_names), function(i){
+        sapply(1:length(decline_list), function(j){
+          pctDecline_fxn_sim(spp = risk_stats, baseline_scenario = scenario_names[1], comp_scenario = scenario_names[i], prop_decline = decline_list[j], num.sim = 1000)
+        })
+      }))
+      
+      write.csv(risk_stats, file.path(tmpdir, "population-scenario.csv"), row.names = FALSE)
+      write.csv(dectab, file.path(tmpdir, "decline-probabilities.csv"), row.names = FALSE)
+      
+      
+      # Zip everything
+      oldwd <- getwd()
+      setwd(tmpdir)
+      on.exit(setwd(oldwd), add = TRUE)
+      
+      # return the zip folder
+      zip::zipr(zipfile = file, files = dir(tmpdir, full.names = FALSE))
+      
     }
-    
     
   )
     
