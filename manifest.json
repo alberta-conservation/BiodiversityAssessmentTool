@@ -4918,7 +4918,7 @@
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
     "global.R": {
-      "checksum": "2c4a485bb1af2f31d77e1aa1e4a6b12c"
+      "checksum": "8f21c4a803510a921395699b5833cade"
     },
     "Rmd/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -5337,8 +5337,11 @@
     "www/data/osr_risk_data.rda": {
       "checksum": "c7be3cf0ba01a67425f9bd8cc5ba0a1f"
     },
+    "www/data/osr_risk_data_24.rda": {
+      "checksum": "1597dba5eaf09233dfad2ba58e308181"
+    },
     "www/data/osr_risk_data_36.rda": {
-      "checksum": "9f9ff5e6de9b23446a4f62091d80ba19"
+      "checksum": "4ae9344ec1fbc7236c7603c0ab192faa"
     },
     "www/data/risk_leases.rda": {
       "checksum": "04df02714b75791cb422a03345800e62"
@@ -5346,8 +5349,11 @@
     "www/data/risk_results_list.rda": {
       "checksum": "21e5fb939e3cbea3d92badd290430c21"
     },
+    "www/data/risk_results_list_24.rda": {
+      "checksum": "7efa30610d65999eafe0ba29a28311b8"
+    },
     "www/data/risk_results_list_36.rda": {
-      "checksum": "de90fa9f958611afa24682000fca2f99"
+      "checksum": "2a84b0eb46abccf12a3a6b55583a9dd0"
     },
     "www/data/spp_lease_results_list.Rdata": {
       "checksum": "5fcac2fd8847594479582c9bb8ad2a3b"
