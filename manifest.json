@@ -4918,7 +4918,10 @@
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
     "global.R": {
-      "checksum": "8f21c4a803510a921395699b5833cade"
+      "checksum": "99fcd52e6e31048b06fdf7b2035c9871"
+    },
+    "README.txt": {
+      "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
     },
     "Rmd/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -4933,13 +4936,13 @@
       "checksum": "952f56bf301009930736b01339fc3bcb"
     },
     "Rmd/data_download_tab.md": {
-      "checksum": "9681770501c2376934f83842f64d23a4"
+      "checksum": "fea048fefa42fa39beabceae47e74aac"
     },
     "Rmd/gtext_exposure.Rmd": {
-      "checksum": "243a34431e8721bb4d5d60dba304706b"
+      "checksum": "25adf11c089bcceae86e849daff0e366"
     },
     "Rmd/gtext_risk.Rmd": {
-      "checksum": "eb76c5669c74d826af451350173c7e8c"
+      "checksum": "d8725b839b18010a688252882d22e66f"
     },
     "Rmd/osr.png": {
       "checksum": "0da808ec058631c308d2587fdde45fd6"
@@ -4950,6 +4953,9 @@
     "Rmd/select_areas_tab.md": {
       "checksum": "88d97566289443484e752f227c6e7072"
     },
+    "Rmd/sosc/ecology.csl": {
+      "checksum": "19349f84939633a4947a2ff3c7812f06"
+    },
     "Rmd/sosc/PIWO 2-pager.docx": {
       "checksum": "58f8249acf0b191b5514664d661df99a"
     },
@@ -4957,7 +4963,7 @@
       "checksum": "e2f1792c6dfd866c773b80e3df38883d"
     },
     "Rmd/sosc/text_piwo_tab.Rmd": {
-      "checksum": "c281637a54126d0c0ccac531b373fbf0"
+      "checksum": "25e64d3a04b9cc3a4176abb1db92fd91"
     },
     "Rmd/sosc/text_piwo_temp_tab.md": {
       "checksum": "da266a1f572f2ed2c8d8340592c6f858"
@@ -4972,13 +4978,22 @@
       "checksum": "735e05ea62087478e10289b18e18ef7c"
     },
     "Rmd/sosc/text_whcr_tab.Rmd": {
-      "checksum": "17e08163b7a60f66e59ab4c132dcbb9e"
+      "checksum": "01dc6250300f7cfcc0b6240595aab200"
     },
     "Rmd/sosc/text_whcr_temp_tab.md": {
       "checksum": "c6a73b6c3e1a271db4b6e12629fe0970"
     },
+    "Rmd/sosc/text_yera_tab.Rmd": {
+      "checksum": "2766822b9ce62f59225e42764d63affe"
+    },
     "Rmd/sosc/text_yera_temp_tab.md": {
       "checksum": "aa3f6619cbda127b87dfacf02c71c717"
+    },
+    "Rmd/sosc/zotero-library-bibtex.bib": {
+      "checksum": "3a687506e592146d71af379aa1f89be2"
+    },
+    "Rmd/sosc/zotero-library.json": {
+      "checksum": "6c8a936d39d89ef4deaa467e6e4a8398"
     },
     "Rmd/spp_accounts/text_spp_AlderFlycatcher.md": {
       "checksum": "0b40f844e2865ea38fe0d34fb378b339"
@@ -5002,10 +5017,10 @@
       "checksum": "e5ab2d78e92285e509bb7f98347bfd26"
     },
     "Rmd/text_intro_tab.md": {
-      "checksum": "42d358a9bda22a77f15eadc2072ef455"
+      "checksum": "144f9f4b78b95621c5aab8ae3347a797"
     },
     "Rmd/text_intro_tab.Rmd": {
-      "checksum": "363024f9b3b8a0a3169d6e9aeab44cfa"
+      "checksum": "144f9f4b78b95621c5aab8ae3347a797"
     },
     "Rmd/text_mitigation_btnw.Rmd": {
       "checksum": "492ffecf09c1c05f89800287f3c2f3da"
@@ -5035,7 +5050,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "31aac217c1d75f2699a77bcdb1b8b5ff"
+      "checksum": "1a6d472a6c35a54c213908d7bba0b42a"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -5056,7 +5071,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "90ff847cfb9d67d768c043c32ee74726"
+      "checksum": "eb191185aff2c9bb402f604a6160c68b"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -5242,7 +5257,7 @@
       "checksum": "b8173cc3f2b62c1c6411cea16e8ca6d7"
     },
     "www/css/style_blank_II.css": {
-      "checksum": "e6a92d983bda7de1cdb43bb62f18c602"
+      "checksum": "f11eb3d747b79225a17b140441163844"
     },
     "www/data/abmi_spp_info.csv": {
       "checksum": "59452d4d45f0ed0d1f6bd5b315b120fe"
@@ -5343,6 +5358,9 @@
     "www/data/osr_risk_data_36.rda": {
       "checksum": "4ae9344ec1fbc7236c7603c0ab192faa"
     },
+    "www/data/osr_risk_data_updated_2026-09-22.rda": {
+      "checksum": "a2f8218894280086cae3f2c5e4778e7e"
+    },
     "www/data/risk_leases.rda": {
       "checksum": "04df02714b75791cb422a03345800e62"
     },
@@ -5355,6 +5373,9 @@
     "www/data/risk_results_list_36.rda": {
       "checksum": "2a84b0eb46abccf12a3a6b55583a9dd0"
     },
+    "www/data/risk_results_list_update.rda": {
+      "checksum": "dd6cd17d7bf4add3d3cf49d0b2ad58a0"
+    },
     "www/data/spp_lease_results_list.Rdata": {
       "checksum": "5fcac2fd8847594479582c9bb8ad2a3b"
     },
@@ -5365,7 +5386,7 @@
       "checksum": "9b1b4e18ae8a9a8c4c6080ab51fd06ba"
     },
     "www/data/vulnerability_data.rda": {
-      "checksum": "b551f23a27e8921ac88945484ed3480a"
+      "checksum": "71d0ef761fa6e341040afac5c2c71d29"
     },
     "www/exposure_maps/AlderFlycatcher_grid_exposure.tif": {
       "checksum": "d560c66950eaff70ab00d7f77afecb84"
@@ -6924,11 +6945,14 @@
     "www/swth.jpg": {
       "checksum": "127df8b492c6bebdc3504fc3535f2da0"
     },
+    "www/text_whcr_tab.html": {
+      "checksum": "b3f46ce0920649fc7341342c7d839add"
+    },
     "www/vlunerability-figure.png": {
       "checksum": "4017f41c1d7d6b2fafa7cc6e430d52e1"
     },
     "www/vulnerability.html": {
-      "checksum": "13f1e3b71be990b723dfb4e226f55377"
+      "checksum": "a47a3047f5128a1803eb2689c5363be2"
     },
     "www/vulnerability_data.csv": {
       "checksum": "f5c37106f9e8bdd89fff9c36ac074920"
@@ -6936,14 +6960,29 @@
     "www/vulnerability_default.html": {
       "checksum": "e930479f1ca97dc622cf9c83415a22c2"
     },
+    "www/vulnerability_readme": {
+      "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
+    },
+    "www/vulnerability_readme.txt": {
+      "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
+    },
     "www/vulnerability_report.Rmd": {
-      "checksum": "c259c730411a5785d642f8cdfa5871dd"
+      "checksum": "c6e5dc948d8f7054785eeb716c998888"
     },
     "www/vulnerability_report_pdf.Rmd": {
       "checksum": "5d4482a08da309700a7c0e96730bf3be"
     },
     "www/vulnerability_report_to_update.Rmd": {
       "checksum": "ac45dcd81fb98affa3e9441cc4b9aa71"
+    },
+    "www/whcr.png": {
+      "checksum": "32a9afe1d1427078c535aa8f167b8961"
+    },
+    "www/yera.png": {
+      "checksum": "0fc2ecaa68462f27b8bbce2642bc2593"
+    },
+    "www/zotero-library.json": {
+      "checksum": "6c8a936d39d89ef4deaa467e6e4a8398"
     }
   },
   "users": null

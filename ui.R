@@ -30,9 +30,9 @@ tagList(
                tabPanel("Overview", value = "soc"), 
                tabPanel("Pileated Woodpecker", value = "piwo"), 
                tabPanel("Yellow Rail", value = "yera"), 
-#                tabPanel("Rusty Blackbird", value = "rubl"), 
-#                tabPanel("Canadian Toad", value = "cato"), 
-#                tabPanel("Sharp-tailed Grouse", value = "stgr"), 
+               #                tabPanel("Rusty Blackbird", value = "rubl"), 
+               #                tabPanel("Canadian Toad", value = "cato"), 
+               #                tabPanel("Sharp-tailed Grouse", value = "stgr"), 
                tabPanel("Whooping Crane", value = "whcr"), 
     )
   ),
@@ -45,7 +45,7 @@ tagList(
       condition="input.tabs == 'intro'",
       div(style = "background-color: white; width: 100vw; margin: 0; padding: 0; display: flex; justify-content: center;",
           tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
-    
+      
       fluidRow(
         column(2, layout_sidebar(
           sidebar = sidebar(
@@ -53,132 +53,132 @@ tagList(
           )
         )),
         
-        column(10, div(id = "markdown-content", includeMarkdown("Rmd/text_intro_tab.md")))
+        column(10, div(id = "markdown-content", includeMarkdown("Rmd/text_intro_tab.Rmd")))
       )
     ), 
-  
-  
-  # Layout for vulnerability and risk tabs
-  conditionalPanel(
-    condition = "input.tabs == 'vulnerability' || input.tabs == 'risk'", 
-    fluidRow(
-      column(3, 
-             conditionalPanel(
-               condition = "input.tabs == 'vulnerability'", 
-               tabsetPanel(
-                 tabPanel("Tool", 
-                          selectInput(
-                            inputId = "spp", 
-                            label = "Select a species", 
-                            choices = spp_tbl$CommonName, 
-                            selected = "Black-throated Green Warbler"),
-                          checkboxGroupInput(
-                            inputId = "prod_field",
-                            label = "Choose the Oil Sands Area:",
-                            choices = c("Athabasca", "Cold Lake", "Peace River Area 1", "Peace River Area 2"),
-                            selected = "Athabasca" # Optional: pre-select an item
-                          ), 
-                          selectInput(
-                            inputId = "app_holder", 
-                            label = "Select a lease holder:", 
-                            choices = lease_holders$lease_holder, 
-                            selected = "Suncor Energy Inc."
-                          ), 
-                          div(actionButton(inputId = "co_prodField", 
-                                       label = "Show selected AOI and leases", 
-                                       icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
-                                       style="width:200px;"
-                          )), 
-                          div(actionButton(inputId = "render_report", 
-                                       label = "Create report", 
-                                       style="margin-top: 20px; width: 200px;"
-                          ))
-                 ), 
-                 tabPanel("Instructions", 
-                          icon = icon("circle-info"), 
-                          div(style = "color: white !important; font-size: 14px; font-family: 'Cormorant Garamond', serif;", 
-                              includeMarkdown("./Rmd/gtext_exposure.Rmd")
-                          )
+    
+    
+    # Layout for vulnerability and risk tabs
+    conditionalPanel(
+      condition = "input.tabs == 'vulnerability' || input.tabs == 'risk'", 
+      fluidRow(
+        column(3, 
+               conditionalPanel(
+                 condition = "input.tabs == 'vulnerability'", 
+                 tabsetPanel(
+                   tabPanel("Tool", 
+                            selectInput(
+                              inputId = "spp", 
+                              label = "Select a species", 
+                              choices = spp_tbl$CommonName, 
+                              selected = "Black-throated Green Warbler"),
+                            checkboxGroupInput(
+                              inputId = "prod_field",
+                              label = "Choose the Oil Sands Area:",
+                              choices = c("Athabasca", "Cold Lake", "Peace River Area 1", "Peace River Area 2"),
+                              selected = "Athabasca" # Optional: pre-select an item
+                            ), 
+                            selectInput(
+                              inputId = "app_holder", 
+                              label = "Select a lease holder:", 
+                              choices = lease_holders$lease_holder, 
+                              selected = "Suncor Energy Inc."
+                            ), 
+                            div(actionButton(inputId = "co_prodField", 
+                                             label = "Show selected AOI and leases", 
+                                             icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
+                                             style="width:200px;"
+                            )), 
+                            div(actionButton(inputId = "render_report", 
+                                             label = "Create report", 
+                                             style="margin-top: 20px; width: 200px;"
+                            ))
+                   ), 
+                   tabPanel("Instructions", 
+                            icon = icon("circle-info"), 
+                            div(style = "color: white !important; font-size: 14px; font-family: 'Cormorant Garamond', serif;", 
+                                includeMarkdown("./Rmd/gtext_exposure.Rmd")
+                            )
+                   )
+                 )
+               ), 
+               conditionalPanel(
+                 condition = "input.tabs == 'risk'", 
+                 tabsetPanel(
+                   tabPanel("Tool",  
+                            selectInput(
+                              inputId = "risk_spp", 
+                              label = "Select a species", 
+                              choices = risk_species$CommonName, 
+                              selected = "Black-throated Green Warbler"),
+                            selectInput(
+                              inputId = "lease_name", 
+                              label = "Select area for assessment:", 
+                              choices = c("Full OSR", "All leases", risk_leases$lease_name), 
+                              selected = "Suncor Energy Inc."
+                            ), 
+                            div(actionButton(inputId = "spp_lease", 
+                                             label = "Show selected species and area", 
+                                             icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
+                                             style="width:200px"))
+                   ), 
+                   tabPanel("Instructions", 
+                            icon = icon("circle-info"), 
+                            div(style = "color: white !important; font-size: 14px; font-family: 'Cormorant Garamond', serif;", 
+                                includeMarkdown("./Rmd/gtext_risk.Rmd")
+                            )
+                   )
                  )
                )
-             ), 
-             conditionalPanel(
-               condition = "input.tabs == 'risk'", 
-               tabsetPanel(
-                 tabPanel("Tool",  
-                          selectInput(
-                            inputId = "risk_spp", 
-                            label = "Select a species", 
-                            choices = risk_species$CommonName, 
-                            selected = "Ovenbird"),
-                          selectInput(
-                            inputId = "lease_name", 
-                            label = "Select area for assessment:", 
-                            choices = c("Full OSR", "All leases", risk_leases$lease_name), 
-                            selected = "Suncor Energy Inc."
-                          ), 
-                          div(actionButton(inputId = "spp_lease", 
-                                       label = "Show selected species and area", 
-                                       icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
-                                       style="width:200px"))
-                 ), 
-                 tabPanel("Instructions", 
-                          icon = icon("circle-info"), 
-                          div(style = "color: white !important; font-size: 14px; font-family: 'Cormorant Garamond', serif;", 
-                              includeMarkdown("./Rmd/gtext_risk.Rmd")
-                          )
+        ), 
+        column(6, 
+               conditionalPanel(
+                 condition = "input.tabs == 'vulnerability'", 
+                 tabsetPanel(id ="centerPanel",
+                             tabPanel("Reference Exposure", 
+                                      leafletOutput(outputId = "map", width = "100%", height = "400px"),
+                                      br(),
+                                      hr(),
+                                      br(),
+                                      uiOutput("vulnerability_report")
+                             ),
+                             tabPanel("Current Exposure",
+                                      leafletOutput(outputId = "map_current", width = "100%", height = "400px")
+                             ) 
+                 )
+               ), 
+               conditionalPanel(
+                 condition = "input.tabs == 'risk'", 
+                 tabsetPanel(
+                   tabPanel("Density distributions", 
+                            plotOutput("dens_plot")
+                   ),
+                   tabPanel("Risk estimates",
+                            plotOutput("decline_plot")
+                   )
                  )
                )
-             )
-      ), 
-      column(6, 
-             conditionalPanel(
-               condition = "input.tabs == 'vulnerability'", 
-               tabsetPanel(id ="centerPanel",
-                           tabPanel("Reference Exposure", 
-                                    leafletOutput(outputId = "map", width = "100%", height = "400px"),
-                                    br(),
-                                    hr(),
-                                    br(),
-                                    uiOutput("vulnerability_report")
-                           ),
-                           tabPanel("Current Exposure",
-                                    leafletOutput(outputId = "map_current", width = "100%", height = "400px")
-                           ) 
+        ), 
+        column(3, 
+               conditionalPanel(
+                 condition = "input.tabs == 'vulnerability'",
+                 div(id = "markdown-content", includeMarkdown("Rmd/data_download_tab.md")),
+                 uiOutput("download_data_ui")
+               ), 
+               conditionalPanel(
+                 condition = "input.tabs == 'risk'",
+                 div(id = "markdown-content", includeMarkdown("Rmd/risk_download_tab.md")), 
+                 uiOutput("download_risk_data_ui")
                )
-             ), 
-             conditionalPanel(
-               condition = "input.tabs == 'risk'", 
-               tabsetPanel(
-                 tabPanel("Density distributions", 
-                          plotOutput("dens_plot")
-                 ),
-                 tabPanel("Risk estimates",
-                          plotOutput("decline_plot")
-                 )
-               )
-             )
-      ), 
-      column(3, 
-             conditionalPanel(
-               condition = "input.tabs == 'vulnerability'",
-               div(id = "markdown-content", includeMarkdown("Rmd/data_download_tab.md")),
-               uiOutput("download_data_ui")
-             ), 
-             conditionalPanel(
-               condition = "input.tabs == 'risk'",
-               div(id = "markdown-content", includeMarkdown("Rmd/risk_download_tab.md")), 
-               uiOutput("download_risk_data_ui")
-             )
-      ), 
-      column(12,  
-             conditionalPanel(
-               condition = "input.tabs == 'vulnerability'", 
-               
-             ) # conditionalPanel(
-      ) # column(12,
+        ), 
+        column(12,  
+               conditionalPanel(
+                 condition = "input.tabs == 'vulnerability'", 
+                 
+               ) # conditionalPanel(
+        ) # column(12,
+      )
     )
-  )
   ), 
   
   conditionalPanel(
@@ -241,7 +241,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_yera_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_yera_tab.Rmd")))
     )
   ), 
   
@@ -304,7 +304,7 @@ tagList(
         )
       )),
       
-      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_whcr_temp_tab.md")))
+      column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_whcr_tab.Rmd")))
     )
   ), 
   
@@ -322,6 +322,3 @@ tagList(
   )
   
 )
-
-
-

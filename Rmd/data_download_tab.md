@@ -1,6 +1,6 @@
 <left>
 
-## Download exposure metrics
+## Download vulnerability metrics
 
 <br>
 

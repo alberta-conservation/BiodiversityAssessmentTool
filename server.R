@@ -6,11 +6,13 @@ server <- function(input, output, session){
     options(chromote.args = c("--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"))
   }
   
-  
+  exp_bcr <- reactiveVal(NULL)
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
   spp_code <- reactiveVal(NULL)
-  exp_bcr <- reactiveVal(NULL)
+  sector_sensitivity <- reactiveVal(NULL)
+  linear_sensitivity <- reactiveVal(NULL)
+  vuln_dat <- reactiveVal(NULL)
   report_version <- reactiveVal(FALSE)
   report_ready <- reactiveVal(FALSE)
   risk_area <- reactiveVal(NULL)
@@ -48,8 +50,8 @@ server <- function(input, output, session){
   # Filter the exposure data to the selected species (bcr and osr), production field, and lease holder (osr) for the reference and current conditions
   observe({
     exp_bcr(bcr_exp |> 
-      filter(spp_code == spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode) |> 
-      mutate(osr_pct = round(osr_pct*100, 2), osr_index = round(osr_index, 2))
+              filter(spp_code == spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode) |> 
+              mutate(osr_pct = round(osr_pct*100, 2), osr_index = round(osr_index, 2))
     )
   })
   
@@ -71,7 +73,7 @@ server <- function(input, output, session){
     r <- rast(paste0("www/bam_v5_4326/", spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode, "_can61_2020.tif"))
     eb <- exp_bcr()
     labels_bcr6s <- sprintf(
-      "<strong>BCR 6S pop: %s</strong><br/>OSR pop: %s<strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+      "<strong>BCR 6S pop: %s</strong><br/>OSR pop: %s<strong><br/>Percent of BCR pop in OSR: %s</strong><br/>OSR exposureiii index: %s",
       eb$bcr_pop, eb$osr_pop, eb$osr_pct, eb$osr_index
     ) %>% lapply(htmltools::HTML)
     
@@ -167,13 +169,13 @@ server <- function(input, output, session){
     
     # Create the labels for the leases from the data files
     labels <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-      cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
+      cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct*100, cfc_pt$lease_index
     ) %>% lapply(htmltools::HTML)
     
     labels_current <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-      cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
+      cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct*100, cf$lease_index
     ) %>% lapply(htmltools::HTML)
     
     # Create the maps for the reference exposure
@@ -258,9 +260,9 @@ server <- function(input, output, session){
     dat <- reactive({
       vulnerability_table |> filter(SpeciesID == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID)
     })
-    sector_sensitivity <- reactive({sector_eff |> filter(Common_Name == input$spp)})
-    linear_sensitivity <- reactive({linear_eff |> filter(Common_Name == input$spp)})
-    vuln_dat <- reactive({vulnerability_data |> filter(CommonName == input$spp)})
+    sector_sensitivity(sector_eff |> filter(Common_Name == input$spp))
+    linear_sensitivity(linear_eff |> filter(Common_Name == input$spp))
+    vuln_dat(vulnerability_data |> filter(CommonName == input$spp))
     
     cf <- exp_ref()
     cf_pt <- st_centroid(st_make_valid(exp_ref()))
@@ -285,6 +287,7 @@ server <- function(input, output, session){
       lease_holder = input$app_holder,
       reference_rast = r1,
       exposure_rast = r2,
+      exposure_bcr = exp_bcr(),
       current_sf = exp_current(),
       reference_sf = exp_ref(),
       production_field = osr |> filter(Area_Name == input$prod_field), 
@@ -412,10 +415,13 @@ server <- function(input, output, session){
       dir.create(tmpdir)
       
       
-      
       # write in temp
+      readme <- readLines("www/vulnerability_readme.txt")
+      exposure_bcr <- st_drop_geometry(exp_bcr())
       reference_exposure <- exp_ref()
       current_exposure <- exp_current()
+      writeLines(readme, file.path(tmpdir, "README.txt"))
+      write.csv(exposure_bcr, file = file.path(tmpdir, "exposure_bcr.csv"), row.names = FALSE)
       st_write(reference_exposure, dsn = file.path(tmpdir, "reference_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
       st_write(current_exposure, dsn = file.path(tmpdir, "current_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
       
@@ -424,9 +430,11 @@ server <- function(input, output, session){
       writeRaster(r1, filename = file.path(tmpdir, "reference_sdm_osr.tif"))
       writeRaster(r2, filename = file.path(tmpdir, "exposure_osr.tif"))
       
-      sector_sensitivity <- reactive({sector_eff |> filter(Common_Name == input$spp)})
-      linear_sensitivity <- reactive({linear_eff |> filter(Common_Name == input$spp)})
-      vuln_dat <- reactive({vulnerability_data |> filter(CommonName == input$spp)})
+      
+      
+      write.csv(sector_sensitivity(), file = file.path(tmpdir, "sector_sensitivity.csv"), row.names = FALSE)
+      write.csv(linear_sensitivity(), file = file.path(tmpdir, "linear_sensitivity.csv"), row.names = FALSE)
+      write.csv(vuln_dat(), file = file.path(tmpdir, "cell_exposure_data.csv"), row.names = FALSE)
       
       cf <- exp_ref()
       cf_pt <- st_centroid(st_make_valid(exp_ref()))
@@ -451,6 +459,7 @@ server <- function(input, output, session){
         lease_holder = input$app_holder,
         reference_rast = r1,
         exposure_rast = r2,
+        exposure_bcr = exp_bcr(),
         current_sf = exp_current(),
         reference_sf = exp_ref(),
         production_field = osr |> filter(Area_Name == input$prod_field), 
@@ -474,7 +483,7 @@ server <- function(input, output, session){
         envir = new.env(parent = globalenv())
       )
       
-
+      
       # Zip everything
       oldwd <- getwd()
       setwd(tmpdir)
@@ -545,7 +554,7 @@ server <- function(input, output, session){
     }
     
   )
-    
-    
+  
+  
   
 }

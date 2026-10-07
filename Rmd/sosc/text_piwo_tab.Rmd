@@ -49,7 +49,11 @@ As part of the effort to understand space use by PIWO and secondary cavity neste
 
 1. Build probability-based acoustic signal decay models to estimate the exact distance and direction to a nest cavity directly from ARU sound files, drastically cutting down manual ground-search hours 
 
-2. Integrate vocal signatures of secondary cavity nesters (e.g., waterfowl, owls, songbirds) into an auditory species classifier (HawkEars, https://abmi.ca/publication/656.html) to better understand acoustic signatures of secondary cavity nesters 
+2. Integrate vocal signatures of secondary cavity nesters (e.g., waterfowl, owls, songbirds) into an auditory species classifier (HawkEars, [<span style="color: white;"><u>https://abmi.ca/publication/656.html</u></span>](https://abmi.ca/publication/656.html)) 
+
+
+
+to better understand acoustic signatures of secondary cavity nesters 
 
 3. In collaboration with the Royal Alberta Museum, monitor cavities over a 3- to 5-year window to model cavity longevity, structural decay rates, and community-wide reuse patterns
 

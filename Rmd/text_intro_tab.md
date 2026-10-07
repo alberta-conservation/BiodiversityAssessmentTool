@@ -8,7 +8,7 @@
 
 ## Overview
 
-The OSR Biodiversity Assessment tool is a Shiny application for exploring species' vulnerability to oil sands disturbances within the context of natural disturbances (fire, insects, disease), other human-caused disturbances (e.g., forestry), and climate change. 
+The OSR Biodiversity Assessment tool is a Shiny application for exploring species' vulnerability to oil sands disturbances within the context of natural disturbances (wildfire), other human-caused disturbances (e.g., forestry, urban development), and climate change. 
 
 <br> 
 
@@ -18,7 +18,7 @@ Vulnerability is assessed in terms of population-level exposure to oil sands dis
 
 There are three distinct components of the OSR Biodiversity Assessment Tool: 
 
-**1. Vulnerability:** Quantification of the population-level spatial exposure to oil sands disturbance for the selected species, including for current oil sands lease areas, and a brief review of known or inferred responses to typical oil sands disturbances. This includes sensitivity factors of habitat loss, edge avoidance, response to small canopy gaps, and potential fragmentation effects. 
+**1. Vulnerability:** Quantification of the population-level spatial exposure to oil sands disturbance for the selected species, including for current oil sands lease areas, and a brief review of known or inferred responses to typical oil sands disturbances. 
 
 **2. Risk Assessment:** If available, model-based estimates of the probability (i.e. *Risk*) of specific levels of population loss under different scenarios of oil sands development and assumptions about other disturbance and succession processes. 
 
