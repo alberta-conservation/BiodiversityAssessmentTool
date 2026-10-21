@@ -23,7 +23,7 @@ tagList(
     title = HTML('<div style="margin-top: 0px;"><a href="https://github.com/alberta-conservation" target="_blank"><img src="abc-program-logo-III.png" height="120px"></a></div>'),
     windowTitle = "OSR Biodiversity Assessment tool",
     tabPanel("Welcome", value = 'intro'),
-    tabPanel(HTML("OSR Conservation<br>triage"), value = 'triage'),
+#     tabPanel(HTML("OSR Conservation<br>triage"), value = 'triage'),
     tabPanel(HTML("Vulnerability<br>assessment"), value = 'vulnerability'),
     tabPanel(HTML("Risk<br>Assessment"), value = 'risk'),
     tabPanel("Mitigation", value = 'recommendations'), 

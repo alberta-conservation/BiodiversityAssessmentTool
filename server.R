@@ -517,6 +517,8 @@ server <- function(input, output, session){
       dir.create(tmpdir)
       
       # write in temp
+      readme <- readLines("www/risk_readme.txt")
+      writeLines(readme, file.path(tmpdir, "README.txt"))
       spp_code(vulnerability_table$SpeciesID[which(vulnerability_table$CommonName == input$risk_spp)]) 
       risk_results <- risk_results_list[which(names(risk_results_list) == spp_code())][[1]] 
       osr_risk <- osr_risk_data[which(names(osr_risk_data) == spp_code())][[1]]
