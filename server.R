@@ -121,7 +121,7 @@ server <- function(input, output, session){
     pal <- colorNumeric(palette = "Spectral", domain = values(rc), na.color = "transparent")
     leaflet() %>%
       addMapPane(name = "ground", zIndex=380) %>%
-      addProviderTiles("CartoDB.Positron", group="baseMap") %>%
+      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
       # Fit bounds to BCR 6S extent
       fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
       addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
@@ -170,12 +170,12 @@ server <- function(input, output, session){
     # Create the labels for the leases from the data files
     labels <- sprintf(
       "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
-      cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct*100, cfc_pt$lease_index
+      cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct*100, cf_pt$lease_index
     ) %>% lapply(htmltools::HTML)
     
     labels_current <- sprintf(
       "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
-      cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct*100, cf$lease_index
+      cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct*100, cfc_pt$lease_index
     ) %>% lapply(htmltools::HTML)
     
     # Create the maps for the reference exposure
@@ -271,13 +271,13 @@ server <- function(input, output, session){
     
     # Create the labels for the leases from the data files
     labels <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-      cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
+      cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf_pt$lease_index
     ) %>% lapply(htmltools::HTML)
     
     labels_current <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-      cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
+      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
+      cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
     ) %>% lapply(htmltools::HTML)
     
     params <- list(
@@ -375,11 +375,11 @@ server <- function(input, output, session){
       d <- dectab
       colnames(d) <- scenario_names[2:4] 
       
-      decline <- data.frame(decline = decline_list*100, d)
+      decline <- data.frame(pct_decline = decline_list*100, d)
       spp_decline <- decline %>% 
         gather(scenario, response, baseline_OS:climate_OS, factor_key = TRUE)
       
-      ggplot(data = spp_decline, aes(x = decline, y = response, group = scenario)) + 
+      ggplot(data = spp_decline, aes(x = pct_decline, y = response, group = scenario)) + 
         geom_line(aes(colour = scenario), linewidth = 1) + 
         scale_colour_manual(values = cbbPalette[2:4], name = "Comparison \nscenario", labels = c("Baseline, OS", "Climate change", "Climate change, OS")) + 
         theme_classic() + xlab("% Population loss relative to historic \nclimate with no Oil Sands development") + ylab("Probability\n") + 
@@ -533,14 +533,41 @@ server <- function(input, output, session){
           filter(lease_name == risk_area())
       }
       
+      dens_plot <- ggplot(data = risk_stats) + geom_density(aes(x = pop_size/1e6, fill = scenario), alpha = 0.4) + 
+        theme_classic() + 
+        scale_fill_manual(values = cbbPalette[1:4], name = "Scenario", labels = c("Baseline, non-OS", "Baseline, OS", "Climate change, non-OS", "Climate change, OS")) + 
+        xlab("\nPopulation size (millions)") + ylab("Probability density\n") + theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20), 
+                                                                                     axis.text = element_text(size = 15), legend.text = element_text(size = 15), 
+                                                                                     legend.title = element_text(size = 20), 
+                                                                                     plot.title = element_text(size = 20)) + 
+        ggtitle("Density distributions of future population size estimates under uncertainty.")
+      
+      ggsave(filename = file.path(tmpdir, "density_plot.png"), dens_plot, height = 6, width = 10)
+      
       dectab <- do.call(cbind, lapply(2:length(scenario_names), function(i){
         sapply(1:length(decline_list), function(j){
           pctDecline_fxn_sim(spp = risk_stats, baseline_scenario = scenario_names[1], comp_scenario = scenario_names[i], prop_decline = decline_list[j], num.sim = 1000)
         })
       }))
+        
+      colnames(dectab) <- scenario_names[2:4] 
+      
+      decline <- data.frame(pct_decline = decline_list*100, dectab)
+      spp_decline <- decline %>% 
+        gather(scenario, response, baseline_OS:climate_OS, factor_key = TRUE)
+      
+      dec_plot <- ggplot(data = spp_decline, aes(x = pct_decline, y = response, group = scenario)) + 
+        geom_line(aes(colour = scenario), linewidth = 1) + 
+        scale_colour_manual(values = cbbPalette[2:4], name = "Comparison \nscenario", labels = c("Baseline, OS", "Climate change", "Climate change, OS")) + 
+        theme_classic() + xlab("% Population loss relative to historic \nclimate with no Oil Sands development") + ylab("Probability\n") + 
+        theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20), 
+              axis.text = element_text(size = 15), legend.text = element_text(size = 15), 
+              legend.title = element_text(size = 20)) + ylim(c(0, 1))
+      
+      ggsave(filename = file.path(tmpdir, "decline_plot.png"), dec_plot, height = 6, width = 10)
       
       write.csv(risk_stats, file.path(tmpdir, "population-scenario.csv"), row.names = FALSE)
-      write.csv(dectab, file.path(tmpdir, "decline-probabilities.csv"), row.names = FALSE)
+      write.csv(decline, file.path(tmpdir, "decline-probabilities.csv"), row.names = FALSE)
       
       
       # Zip everything
