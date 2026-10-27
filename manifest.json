@@ -4223,8 +4223,11 @@
     "data_scripts.R": {
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
+    "download_code.R": {
+      "checksum": "a87165b7035589b7a5087bb11268c545"
+    },
     "global.R": {
-      "checksum": "99fcd52e6e31048b06fdf7b2035c9871"
+      "checksum": "2c4a485bb1af2f31d77e1aa1e4a6b12c"
     },
     "README.txt": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -4356,7 +4359,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "96a9a58f7306605107797efe0ab85df3"
+      "checksum": "c941db6dfddcf5aec5223e6cbfcc1e6b"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -4377,7 +4380,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "0088a67f9c8fdd0cbfaed73a0b1a9600"
+      "checksum": "0c8ad3d4f8b817ba911015639d264c1f"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -5008,6 +5011,9 @@
     },
     "www/risk-assessment-figure.png": {
       "checksum": "6a57c1db821ae03e59cc4aa9f3895355"
+    },
+    "www/risk_readme.txt": {
+      "checksum": "41d7530929c5fe5ecc034fce999ee5b5"
     },
     "www/spp_pred_current/AlderFlycatcher_osr_current.tif": {
       "checksum": "ba7e91792c1327728e27dbbc115690eb"
@@ -6261,7 +6267,7 @@
       "checksum": "4017f41c1d7d6b2fafa7cc6e430d52e1"
     },
     "www/vulnerability.html": {
-      "checksum": "a73b179f67c8a0a255614d3c1e10b713"
+      "checksum": "ddd28c448bf560d391039ea372db8488"
     },
     "www/vulnerability_data.csv": {
       "checksum": "f5c37106f9e8bdd89fff9c36ac074920"
@@ -6276,7 +6282,7 @@
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
     },
     "www/vulnerability_report.Rmd": {
-      "checksum": "8b3ed56ce5945745f9dcf692022d6708"
+      "checksum": "14571bebe10faa28492dbe342439492d"
     },
     "www/vulnerability_report_pdf.Rmd": {
       "checksum": "5d4482a08da309700a7c0e96730bf3be"
