@@ -7,7 +7,7 @@ The risk assessment tool allows users to view the potential population outcomes 
 
 ### Area of interest (AOI) and lease selection
 
-- **Step 1.** Select the species of interest from the dropdown list. 
+- **Step 1.** Select 'All species' to see a summary across all species for the selected area of interest, or select the species of interest from the dropdown list. 
 
 - **Step 2.** Select the area of interest from the dropdown list.. It can be the entire OSR (Full OSR), the portion of the OSR covered by all leases (All Leases), or a specific lease (by name) 
 

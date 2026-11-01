@@ -9,6 +9,7 @@ server <- function(input, output, session){
   exp_bcr <- reactiveVal(NULL)
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
+  exp_allSpec <- reactiveVal(NULL)
   spp_code <- reactiveVal(NULL)
   sector_sensitivity <- reactiveVal(NULL)
   linear_sensitivity <- reactiveVal(NULL)
@@ -49,10 +50,12 @@ server <- function(input, output, session){
   
   # Filter the exposure data to the selected species (bcr and osr), production field, and lease holder (osr) for the reference and current conditions
   observe({
-    exp_bcr(bcr_exp |> 
-              filter(spp_code == spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode) |> 
-              mutate(osr_pct = round(osr_pct*100, 2), osr_index = round(osr_index, 2))
-    )
+    if(input$spp != "All species"){
+      exp_bcr(bcr_exp |> 
+                filter(spp_code == spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode) |> 
+                mutate(osr_pct = round(osr_pct*100, 2), osr_index = round(osr_index, 2))
+      )
+    }
   })
   
   observeEvent(input$prod_field, {
@@ -68,175 +71,286 @@ server <- function(input, output, session){
     report_ready(FALSE)
   })
   
-  # Create the reference exposure map for the BCR using the BAM map
+  # Create the reference exposure map for the BCR using the BAM map or the cell map (all spp)
+  
   output$map <- renderLeaflet({
-    r <- rast(paste0("www/bam_v5_4326/", spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode, "_can61_2020.tif"))
-    eb <- exp_bcr()
-    labels_bcr6s <- sprintf(
-      "<strong>BCR 6S pop: %s</strong><br/>OSR pop: %s<strong><br/>Percent of BCR pop in OSR: %s</strong><br/>OSR exposureiii index: %s",
-      eb$bcr_pop, eb$osr_pop, eb$osr_pct, eb$osr_index
-    ) %>% lapply(htmltools::HTML)
-    
-    pal <- colorNumeric(palette = "Spectral", domain = values(r), na.color = "transparent")
-    map <- leaflet() %>%
-      addMapPane(name = "ground", zIndex=380) %>%
-      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
-      # Fit bounds to BCR 6S extent and add the osr area polygons
-      fitBounds(lng1 = -116.0, lat1 = 50, lng2 = -105.0, lat2 = 58) |> 
-      addRasterImage(r$mean, colors = "viridis", opacity = 0.8) |> 
-      addPolygons(
-        data = eb, 
-        fillColor = NA, 
-        fillOpacity = 0, 
-        weight = 1, 
-        color = "black", 
-        label = ~labels_bcr6s
-      ) |> 
-      addPolygons(
-        data = osr, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 2, 
-        color = "red", 
-        dashArray = "3", 
-        highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
-        label = ~Area_Name
-      )
-    
-    if(!is.null(input$prod_field)){
-      osr_selected <- osr |>
-        dplyr::filter(Area_Name %in% input$prod_field)
-      map <- map |>
-        addPolygons(data = osr_selected,  fillColor = NA, fillOpacity = 0, weight = 4, color = "red", group = "selected_osr")
+    if(input$spp == "All species"){
+      r <- rast("www/exposure_maps/cell_exposure_sum.tif")
+      pal <- colorNumeric(palette = "Spectral", domain = values(r), na.color = "transparent")
+      map <- leaflet() %>%
+        addMapPane(name = "ground", zIndex=380) %>%
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
+        # Fit bounds to BCR 6S extent and add the osr area polygons
+        fitBounds(lng1 = -117.91614, lat1 = 53.54062, lng2 = -110.00558, lat2 = 57.99188) |> 
+        addRasterImage(r, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = osr, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 2, 
+          color = "red", 
+          dashArray = "3", 
+          highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
+          label = ~Area_Name
+        )
+    }else{
+      r <- rast(paste0("www/bam_v5_4326/", spp_tbl[spp_tbl$CommonName == input$spp, ]$speciesCode, "_can61_2020.tif"))
+      eb <- exp_bcr()
+      labels_bcr6s <- sprintf(
+        "<strong>BCR 6S pop: %s</strong><br/>OSR pop: %s<strong><br/>Percent of BCR pop in OSR: %s</strong><br/>OSR exposureiii index: %s",
+        eb$bcr_pop, eb$osr_pop, eb$osr_pct, eb$osr_index
+      ) %>% lapply(htmltools::HTML)
+      
+      pal <- colorNumeric(palette = "Spectral", domain = values(r), na.color = "transparent")
+      map <- leaflet() %>%
+        addMapPane(name = "ground", zIndex=380) %>%
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
+        # Fit bounds to BCR 6S extent and add the osr area polygons
+        fitBounds(lng1 = -116.0, lat1 = 50, lng2 = -105.0, lat2 = 58) |> 
+        addRasterImage(r$mean, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = eb, 
+          fillColor = NA, 
+          fillOpacity = 0, 
+          weight = 1, 
+          color = "black", 
+          label = ~labels_bcr6s
+        ) |> 
+        addPolygons(
+          data = osr, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 2, 
+          color = "red", 
+          dashArray = "3", 
+          highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
+          label = ~Area_Name
+        )
+      
+      if(!is.null(input$prod_field)){
+        osr_selected <- osr |>
+          dplyr::filter(Area_Name %in% input$prod_field)
+        map <- map |>
+          addPolygons(data = osr_selected,  fillColor = NA, fillOpacity = 0, weight = 4, color = "red", group = "selected_osr")
+      }
+      map
     }
-    map
+    
   })
-  
-  
-  
   
   # Create the current exposure map for the OSR using the ABMI prediction map
   output$map_current <- renderLeaflet({
-    rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
-    pal <- colorNumeric(palette = "Spectral", domain = values(rc), na.color = "transparent")
-    leaflet() %>%
-      addMapPane(name = "ground", zIndex=380) %>%
-      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
-      # Fit bounds to BCR 6S extent
-      fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
-      addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
-      addPolygons(
-        data = osr, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 4, 
-        color = "red", 
-        dashArray = "3", 
-        highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
-        label = ~Area_Name
-      )
+    if(input$spp != "All species"){
+      rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
+      pal <- colorNumeric(palette = "Spectral", domain = values(rc), na.color = "transparent")
+      leaflet() %>%
+        addMapPane(name = "ground", zIndex=380) %>%
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap")|> 
+        # Fit bounds to BCR 6S extent
+        fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
+        addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = osr, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 4, 
+          color = "red", 
+          dashArray = "3", 
+          highlightOptions = highlightOptions(weight = 5, color = "white", bringToFront = TRUE),
+          label = ~Area_Name
+        )
+    }else{
+      NULL
+    }
+    
   })
   
   
   # Create the updated OSR maps with selected species, production field, and lease holder
   observeEvent(input$co_prodField, {
     
-    cop <- lease_exp_ref |> filter(osa == input$prod_field & lease_holder == input$app_holder)
-    if(isTRUE(nrow(cop) == 0)){
-      showModal(modalDialog(
-        title = "The selected lease holders do not occur within the selected Oil Sands Area",
-        "Prior to generating the data, you must confirm that the selected OSA contains leases belonging to the selected lease holder.",
-        easyClose = TRUE,
-        footer =  "Click anywhere on the screen to close this message.")
-      )
+    # Initialize Leaflet maps
+    output$map <- renderLeaflet({
+      leaflet() |>
+        addMapPane(name = "ground", zIndex=380) |> 
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
+        fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188)
+    })
+    
+    output$map_current <- renderLeaflet({
+      leaflet() |>
+        addMapPane(name = "ground", zIndex=380) |> 
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
+        fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188)
+    })
+    
+    # Clear previous map features
+    leafletProxy("map") |>
+      clearMarkers() |>
+      clearShapes() |>
+      clearControls()
+    
+    leafletProxy("map_current") |>
+      clearMarkers() |>
+      clearShapes() |>
+      clearControls()
+    
+    if(input$spp == "All species"){
+      cop <- lease_exp_ref |> filter(osa == input$prod_field & lease_holder == input$app_holder)
+      if(isTRUE(nrow(cop) == 0)){
+        showModal(modalDialog(
+          title = "The selected lease holders do not occur within the selected Oil Sands Area",
+          "Prior to generating the data, you must confirm that the selected OSA contains leases belonging to the selected lease holder.",
+          easyClose = TRUE,
+          footer =  "Click anywhere on the screen to close this message.")
+        )
+      }
+      req(isTRUE(nrow(cop) > 0))
+      
+      r1 <- rast("www/exposure_maps/cell_exposure_sum.tif")
+      pf <- osr |> filter(Area_Name == input$prod_field)
+      
+      exp_allSpec(vulnerability_data_lease |> 
+                    filter(osa == input$prod_field & lease_holder == input$app_holder))
+      
+      ca <- exp_allSpec()
+      ca1 <- ca |> 
+        group_by(lease) |> 
+        summarize(tot_exp = round(sum(lease_exp), 2), geometry = st_union(geometry), lease_holder = unique(lease_holder)) |> 
+        st_make_valid() |> 
+        mutate(area_km = as.numeric(st_area(geometry))/1000^2) |>
+        mutate(relative_exp = round(tot_exp/area_km, 2)) |> 
+        st_transform(crs = 4326)
+      
+      ca1_pt <- st_centroid(st_make_valid(ca1))
+      
+      # Create the labels for the leases from the data files
+      labels <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
+        ca1_pt$lease_holder, ca1_pt$lease, ca1_pt$tot_exp, ca1$relative_exp
+      ) %>% lapply(htmltools::HTML)
+      
+      leafletProxy("map") |>
+        addRasterImage(r1, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = pf, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 4, 
+          color = "red", 
+          dashArray = "3"
+        )  |> 
+        addPolygons(
+          data = ca1, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 2, 
+          color = "yellow", 
+          dashArray = "3", 
+          label = ~lease
+        ) |> 
+        addMarkers(
+          data = ca1_pt, 
+          label = ~labels
+        )
+      
+    }else{
+      cop <- lease_exp_ref |> filter(osa == input$prod_field & lease_holder == input$app_holder)
+      if(isTRUE(nrow(cop) == 0)){
+        showModal(modalDialog(
+          title = "The selected lease holders do not occur within the selected Oil Sands Area",
+          "Prior to generating the data, you must confirm that the selected OSA contains leases belonging to the selected lease holder.",
+          easyClose = TRUE,
+          footer =  "Click anywhere on the screen to close this message.")
+        )
+      }
+      req(isTRUE(nrow(cop) > 0))
+      
+      r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
+      rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
+      pf <- osr |> filter(Area_Name == input$prod_field)
+      
+      exp_ref(lease_exp_ref |> filter(spp == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID & osa == input$prod_field & lease_holder == input$app_holder) |> 
+                mutate(common_name = input$spp))
+      exp_current(lease_exp_current |> filter(spp == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID & osa == input$prod_field & lease_holder == input$app_holder) |> 
+                    mutate(common_name = input$spp))
+      b <- st_bbox(osr)
+      
+      cf <- exp_ref()
+      cf_pt <- st_centroid(st_make_valid(exp_ref()))
+      cfc <- exp_current()
+      cfc_pt <- st_centroid(st_make_valid(exp_current()))
+      
+      # Create the labels for the leases from the data files
+      labels <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
+        cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct*100, cf_pt$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      labels_current <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
+        cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct*100, cfc_pt$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      # Create the maps for the reference exposure
+      leafletProxy("map") |> 
+        clearMarkers() |> 
+        clearShapes() |> 
+        addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = pf, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 4, 
+          color = "red", 
+          dashArray = "3"
+        )  |> 
+        addPolygons(
+          data = cf, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 2, 
+          color = "yellow", 
+          dashArray = "3", 
+          label = ~lease
+        ) |> 
+        addMarkers(
+          data = cf_pt, 
+          label = ~labels
+        )
+      
+      # Create the maps for the current exposure
+      leafletProxy("map_current") |> 
+        clearMarkers() |> 
+        clearShapes() |> 
+        addMapPane(name = "ground", zIndex=380) |> 
+        addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
+        fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
+        addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
+        addPolygons(
+          data = pf, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 4, 
+          color = "red", 
+          dashArray = "3"
+        )  |> 
+        addPolygons(
+          data = cfc, 
+          fillColor = NA, 
+          fillOpacity = 0,
+          weight = 2, 
+          color = "yellow", 
+          dashArray = "3", 
+          label = ~lease
+        ) |> 
+        addMarkers(
+          data = cfc_pt, 
+          label = ~labels_current
+        )
     }
-    req(isTRUE(nrow(cop) > 0))
     
-    r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
-    rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
-    pf <- osr |> filter(Area_Name == input$prod_field)
     
-    exp_ref(lease_exp_ref |> filter(spp == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID & osa == input$prod_field & lease_holder == input$app_holder) |> 
-              mutate(common_name = input$spp))
-    exp_current(lease_exp_current |> filter(spp == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID & osa == input$prod_field & lease_holder == input$app_holder) |> 
-                  mutate(common_name = input$spp))
-    b <- st_bbox(osr)
-    
-    cf <- exp_ref()
-    cf_pt <- st_centroid(st_make_valid(exp_ref()))
-    cfc <- exp_current()
-    cfc_pt <- st_centroid(st_make_valid(exp_current()))
-    
-    # Create the labels for the leases from the data files
-    labels <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
-      cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct*100, cf_pt$lease_index
-    ) %>% lapply(htmltools::HTML)
-    
-    labels_current <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>Percent of OSR pop: %s</strong><br/>Exposure index: %s",
-      cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct*100, cfc_pt$lease_index
-    ) %>% lapply(htmltools::HTML)
-    
-    # Create the maps for the reference exposure
-    leafletProxy("map") |> 
-      clearMarkers() |> 
-      clearShapes() |> 
-      addMapPane(name = "ground", zIndex=380) |> 
-      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
-      fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
-      addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
-      addPolygons(
-        data = pf, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 4, 
-        color = "red", 
-        dashArray = "3"
-      )  |> 
-      addPolygons(
-        data = cf, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 2, 
-        color = "yellow", 
-        dashArray = "3", 
-        label = ~lease
-      ) |> 
-      addMarkers(
-        data = cf_pt, 
-        label = ~labels
-      )
-    
-    # Create the maps for the current exposure
-    leafletProxy("map_current") |> 
-      clearMarkers() |> 
-      clearShapes() |> 
-      addMapPane(name = "ground", zIndex=380) |> 
-      addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
-      fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
-      addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
-      addPolygons(
-        data = pf, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 4, 
-        color = "red", 
-        dashArray = "3"
-      )  |> 
-      addPolygons(
-        data = cfc, 
-        fillColor = NA, 
-        fillOpacity = 0,
-        weight = 2, 
-        color = "yellow", 
-        dashArray = "3", 
-        label = ~lease
-      ) |> 
-      addMarkers(
-        data = cfc_pt, 
-        label = ~labels_current
-      )
   })
   
   
@@ -501,6 +615,6 @@ server <- function(input, output, session){
     req(risk_report_ready())
     downloadButton("dwd_risk_data", "Download is temporarily disabled while the application undergoes updates", style="margin-top: 20px;  width: 250px;")
   })  
- 
+  
   
 }

@@ -7,15 +7,17 @@ The 'Exposure' tool allows users to view the distribution of the species within 
 
 ### Area of interest (AOI) and lease holder selection
 
-- **Step 1.** Select the AOI from the checklist (The Production Fields can be viewed on the initial map by hovering over it with the curser). 
+- **Step 1.** Select 'All species' to get a summary across selected lease areas, or select a species of interest to see vulnerability metrics and maps for that species. 
 
-- **Step 2.** Select the lease holder from the dropdown list. The list of lease holders should only include those in the selected AOI.  
+- **Step 2.** Select the AOI from the checklist (The Production Fields can be viewed on the initial map by hovering over it with the curser). 
 
-- **Step 3.** Click on Show Selected Area and Leases to view the density distributions and exposure estimates in the plots.
+- **Step 3.** Select the lease holder from the dropdown list. The list of lease holders should only include those in the selected AOI.  
 
-- **Step 4.**  Click on Generate Report to view the report created by from the data. 
+- **Step 4.** Click on Show Selected Area and Leases to view the density distributions and exposure estimates in the plots.
 
-- **Step 5.** Click on Download Data and Report in the upper right to download all data used to create the maps and report, and the report with interactive maps in .html format. 
+- **Step 5.**  Click on Generate Report to view the report created by from the data. 
+
+- **Step 6.** Click on Download Data and Report in the upper right to download all data used to create the maps and report, and the report with interactive maps in .html format. 
 
 
 

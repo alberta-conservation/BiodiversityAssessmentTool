@@ -31,6 +31,7 @@ load("www/data/osr_reference_exposure_metrics.rda")
 load("www/data/risk_results_list.rda")
 load("www/data/osr_risk_data.rda")
 load("www/data/vulnerability_data.rda")
+load("www/data/vulnerability_data_lease.rda")
 vulnerability_table <- read.csv("www/vulnerability_data.csv")
 bcr_exp <- st_transform(bam_exposure_metrics, crs = 4326)
 sector_eff <- read.csv("www/data/all_forest_sectoreff.csv")
@@ -68,6 +69,9 @@ lease_exp_ref <- lease_exp_ref |>
       .default = osa
     )
   )
+
+
+
 lease_holders <- data.frame(lease_holder = levels(as.factor(lease_exp_ref$lease_holder)))
 risk_leases <- data.frame(lease_name = levels(as.factor(risk_results_list[[1]]$lease_name)))
 risk_species <- data.frame(CommonName = vulnerability_table$CommonName[which(vulnerability_table$SpeciesID %in% names(osr_risk_data))])

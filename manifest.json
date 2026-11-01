@@ -4227,7 +4227,7 @@
       "checksum": "a87165b7035589b7a5087bb11268c545"
     },
     "global.R": {
-      "checksum": "2c4a485bb1af2f31d77e1aa1e4a6b12c"
+      "checksum": "b6abb502c6b75390ea1a896dc17ee2b7"
     },
     "README.txt": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -4248,10 +4248,10 @@
       "checksum": "fea048fefa42fa39beabceae47e74aac"
     },
     "Rmd/gtext_exposure.Rmd": {
-      "checksum": "25adf11c089bcceae86e849daff0e366"
+      "checksum": "e6160c4230e37f11496f79aae6b2b4c2"
     },
     "Rmd/gtext_risk.Rmd": {
-      "checksum": "d8725b839b18010a688252882d22e66f"
+      "checksum": "af1430411b57d9fec4571d02a69c3c53"
     },
     "Rmd/osr.png": {
       "checksum": "0da808ec058631c308d2587fdde45fd6"
@@ -4359,7 +4359,10 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "638a9a0b036d0a118e215e1f381ec415"
+      "checksum": "cde95f3deaaeef8f0a3eeee949d83f1a"
+    },
+    "server_allspec.R": {
+      "checksum": "2163704d83a1a74103e4ffa922dee676"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -4380,7 +4383,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "0c8ad3d4f8b817ba911015639d264c1f"
+      "checksum": "be6dee18ec5ddf720a56470b8a7466e5"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -4395,7 +4398,7 @@
       "checksum": "694f0ee7032e179dad5642a016c5c529"
     },
     "www/app_design.png": {
-      "checksum": "5ff6c3bfe84a220fd1243ab4a80cdab4"
+      "checksum": "cc43c433882e28634e42fab2029f503f"
     },
     "www/bam_v5_4326/ALFL_can61_2020.tif": {
       "checksum": "4c7bd535269358ffa5ad9b58850ea1b4"
@@ -4700,6 +4703,9 @@
     "www/data/vulnerability_data.rda": {
       "checksum": "71d0ef761fa6e341040afac5c2c71d29"
     },
+    "www/data/vulnerability_data_lease.rda": {
+      "checksum": "3c531c46c2e4aec107286b5091f7d41b"
+    },
     "www/exposure_maps/AlderFlycatcher_grid_exposure.tif": {
       "checksum": "d560c66950eaff70ab00d7f77afecb84"
     },
@@ -4777,6 +4783,9 @@
     },
     "www/exposure_maps/CedarWaxwing_grid_exposure.tif": {
       "checksum": "22e23f790aae5757ee186001a0fd779f"
+    },
+    "www/exposure_maps/cell_exposure_sum.tif": {
+      "checksum": "e2f58b097455a69f022709196b55d9aa"
     },
     "www/exposure_maps/ChestnutsidedWarbler_grid_exposure.tif": {
       "checksum": "f2abc6056b696fbc7bf9d3e44d6a6605"
@@ -6275,6 +6284,9 @@
     "www/vulnerability_default.html": {
       "checksum": "e930479f1ca97dc622cf9c83415a22c2"
     },
+    "www/vulnerability_ms_report.Rmd": {
+      "checksum": "6d5577588ca3a2ddb543745407c8c191"
+    },
     "www/vulnerability_readme": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
     },
@@ -6282,7 +6294,7 @@
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
     },
     "www/vulnerability_report.Rmd": {
-      "checksum": "14571bebe10faa28492dbe342439492d"
+      "checksum": "dd188c293c6500b996926ee3fba56e10"
     },
     "www/vulnerability_report_pdf.Rmd": {
       "checksum": "5d4482a08da309700a7c0e96730bf3be"

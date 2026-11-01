@@ -71,7 +71,7 @@ tagList(
                             selectInput(
                               inputId = "spp", 
                               label = "Select a species", 
-                              choices = spp_tbl$CommonName, 
+                              choices = c("All species", spp_tbl$CommonName), 
                               selected = "Black-throated Green Warbler"),
                             checkboxGroupInput(
                               inputId = "prod_field",
