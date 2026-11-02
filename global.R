@@ -36,6 +36,7 @@ vulnerability_table <- read.csv("www/vulnerability_data.csv")
 bcr_exp <- st_transform(bam_exposure_metrics, crs = 4326)
 sector_eff <- read.csv("www/data/all_forest_sectoreff.csv")
 linear_eff <- read.csv("www/data/linear_coefficients_forest.csv")
+final_abmi_spp_list <- read.csv("www/data/final_abmi_spp_list.csv")
 #lease_exp_current <- st_transform(lease_exp_current, crs = 4326) |> 
 #  mutate(osa = replace_values(osa, "ATHABASCA" ~ "Athabasca", "COLD LAKE" ~ "Cold Lake", "PEACE RIVER AREA 1" ~ "Peace River Area 1", "PEACE RIVER AREA 2" ~ "Peace River Area 2"))
 

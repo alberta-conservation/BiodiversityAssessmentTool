@@ -4227,7 +4227,7 @@
       "checksum": "a87165b7035589b7a5087bb11268c545"
     },
     "global.R": {
-      "checksum": "b6abb502c6b75390ea1a896dc17ee2b7"
+      "checksum": "b3557adea9c3129ba18535fff0cf6bac"
     },
     "README.txt": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -4359,10 +4359,10 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "cde95f3deaaeef8f0a3eeee949d83f1a"
+      "checksum": "832806cc6f37e74fb740a92544d2e9f6"
     },
     "server_allspec.R": {
-      "checksum": "2163704d83a1a74103e4ffa922dee676"
+      "checksum": "1a66cf27fa50a69c043cbda278f32f49"
     },
     "server_doesntWork.R": {
       "checksum": "3b457776c649e528064873d018dff1c2"
@@ -4623,7 +4623,7 @@
       "checksum": "dbb7d9fa98d892dfb3e5a401dd3733bf"
     },
     "www/data/final_abmi_spp_list.csv": {
-      "checksum": "27a29c994e49c9257b1754becc92f875"
+      "checksum": "14c09b92d3c7c110979e50d1f9287b59"
     },
     "www/data/lease_current_exposure_metrics.rda": {
       "checksum": "85803d8ed37bc2430eaf0ec787e88e74"
@@ -4704,7 +4704,7 @@
       "checksum": "71d0ef761fa6e341040afac5c2c71d29"
     },
     "www/data/vulnerability_data_lease.rda": {
-      "checksum": "3c531c46c2e4aec107286b5091f7d41b"
+      "checksum": "4bdbdf437f4be36e256863ad1db3ba60"
     },
     "www/exposure_maps/AlderFlycatcher_grid_exposure.tif": {
       "checksum": "d560c66950eaff70ab00d7f77afecb84"
@@ -6276,7 +6276,7 @@
       "checksum": "4017f41c1d7d6b2fafa7cc6e430d52e1"
     },
     "www/vulnerability.html": {
-      "checksum": "5ab5e454a0d2cd00a6b7e020cce0787d"
+      "checksum": "99bdd93efdd317ae5f19cc6e886cd308"
     },
     "www/vulnerability_data.csv": {
       "checksum": "f5c37106f9e8bdd89fff9c36ac074920"
@@ -6285,7 +6285,7 @@
       "checksum": "e930479f1ca97dc622cf9c83415a22c2"
     },
     "www/vulnerability_ms_report.Rmd": {
-      "checksum": "6d5577588ca3a2ddb543745407c8c191"
+      "checksum": "5997ef79bc278f5f7efb4ffc8026a3ec"
     },
     "www/vulnerability_readme": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -6294,7 +6294,7 @@
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
     },
     "www/vulnerability_report.Rmd": {
-      "checksum": "dd188c293c6500b996926ee3fba56e10"
+      "checksum": "c183b8f2224fbdb7ab1b96001aeab7d1"
     },
     "www/vulnerability_report_pdf.Rmd": {
       "checksum": "5d4482a08da309700a7c0e96730bf3be"

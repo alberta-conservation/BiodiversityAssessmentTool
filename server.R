@@ -10,12 +10,14 @@ server <- function(input, output, session){
   exp_ref <- reactiveVal(NULL)
   exp_current <- reactiveVal(NULL)
   exp_allSpec <- reactiveVal(NULL)
+  exp_cell <- reactiveVal(NULL)
   spp_code <- reactiveVal(NULL)
   sector_sensitivity <- reactiveVal(NULL)
   linear_sensitivity <- reactiveVal(NULL)
   vuln_dat <- reactiveVal(NULL)
   report_version <- reactiveVal(FALSE)
   report_ready <- reactiveVal(FALSE)
+  # vulnerability_report <- reactiveVal(NULL)
   risk_area <- reactiveVal(NULL)
   risk_report_ready <- reactiveVal(FALSE)
   ################################################################################################
@@ -207,7 +209,7 @@ server <- function(input, output, session){
       }
       req(isTRUE(nrow(cop) > 0))
       
-      r1 <- rast("www/exposure_maps/cell_exposure_sum.tif")
+      re <- rast("www/exposure_maps/cell_exposure_sum.tif")
       pf <- osr |> filter(Area_Name == input$prod_field)
       
       exp_allSpec(vulnerability_data_lease |> 
@@ -222,16 +224,16 @@ server <- function(input, output, session){
         mutate(relative_exp = round(tot_exp/area_km, 2)) |> 
         st_transform(crs = 4326)
       
-      ca1_pt <- st_centroid(st_make_valid(ca1))
+      ca_pt <- st_centroid(st_make_valid(ca1))
       
       # Create the labels for the leases from the data files
-      labels <- sprintf(
+      labels_allSpec <- sprintf(
         "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
-        ca1_pt$lease_holder, ca1_pt$lease, ca1_pt$tot_exp, ca1$relative_exp
+        ca_pt$lease_holder, ca_pt$lease, ca_pt$tot_exp, ca_pt$relative_exp
       ) %>% lapply(htmltools::HTML)
       
       leafletProxy("map") |>
-        addRasterImage(r1, colors = "viridis", opacity = 0.8) |> 
+        addRasterImage(re, colors = "viridis", opacity = 0.8) |> 
         addPolygons(
           data = pf, 
           fillColor = NA, 
@@ -250,8 +252,8 @@ server <- function(input, output, session){
           label = ~lease
         ) |> 
         addMarkers(
-          data = ca1_pt, 
-          label = ~labels
+          data = ca_pt, 
+          label = ~labels_allSpec
         )
       
     }else{
@@ -326,7 +328,7 @@ server <- function(input, output, session){
         addMapPane(name = "ground", zIndex=380) |> 
         addProviderTiles("Esri.WorldGrayCanvas", group="baseMap") |> 
         fitBounds(lng1 = -117.91614, lat1 = 53.54062, -110.00558, lat2 = 57.99188) |> 
-        addRasterImage(r1$Species, colors = "viridis", opacity = 0.8) |> 
+        addRasterImage(rc$Species, colors = "viridis", opacity = 0.8) |> 
         addPolygons(
           data = pf, 
           fillColor = NA, 
@@ -368,54 +370,115 @@ server <- function(input, output, session){
     
     showNotification("Processing data for your report...", type = "message")
     
-    # Get rasters and datasets for report (exp_ref and r1 are repeated from above)
-    r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
-    r2 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
-    dat <- reactive({
-      vulnerability_table |> filter(SpeciesID == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID)
-    })
-    sector_sensitivity(sector_eff |> filter(Common_Name == input$spp))
-    linear_sensitivity(linear_eff |> filter(Common_Name == input$spp))
-    vuln_dat(vulnerability_data |> filter(CommonName == input$spp))
+    if(input$spp == "All species"){
+      
+      re <- rast("www/exposure_maps/cell_exposure_sum.tif")
+      pf <- osr |> filter(Area_Name == input$prod_field)
+      
+      exp_allSpec(vulnerability_data_lease |> 
+                    filter(osa == input$prod_field & lease_holder == input$app_holder))
+      
+      ca <- exp_allSpec()
+      ca1 <- ca |> 
+        group_by(lease) |> 
+        summarize(tot_exp = round(sum(lease_exp), 2), geometry = st_union(geometry), lease_holder = unique(lease_holder)) |> 
+        st_make_valid() |> 
+        mutate(area_km = as.numeric(st_area(geometry))/1000^2) |>
+        mutate(relative_exp = round(tot_exp/area_km, 2)) |> 
+        st_transform(crs = 4326)
+      
+      ca_pt <- st_centroid(st_make_valid(ca1))
+      
+      # Create the labels for the leases from the data files
+      labels_allSpec <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
+        ca_pt$lease_holder, ca_pt$lease, ca_pt$tot_exp, ca_pt$relative_exp
+      ) %>% lapply(htmltools::HTML)
+      
+      params <- list(
+        production_field = osr |> filter(Area_Name == input$prod_field), 
+        lease_holder = input$app_holder,
+        lease_data = ca1, 
+        exposure_rast = re,
+        allSpec_sf = exp_allSpec(), 
+        ca_pt = ca_pt, 
+        labels_allSpec = labels_allSpec, 
+        spp_list = final_abmi_spp_list
+      )
+      
+      vulnerability_report <- "www/vulnerability_ms_report.Rmd"
+      
+    }else{
+      # Get rasters and datasets for report (exp_ref and r1 are repeated from above)
+      r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
+      rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
+      r3 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
+      dat <- reactive({
+        vulnerability_table |> filter(SpeciesID == spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID)
+      })
+      sector_sensitivity(sector_eff |> filter(Common_Name == input$spp))
+      linear_sensitivity(linear_eff |> filter(Common_Name == input$spp))
+      vuln_dat(vulnerability_data |> filter(CommonName == input$spp))
+      exp_cell(vulnerability_data_lease |> filter(CommonName == input$spp & osa == input$prod_field & lease_holder == input$app_holder))
+      
+      cf <- exp_ref()
+      cf_pt <- st_centroid(st_make_valid(exp_ref()))
+      cfc <- exp_current()
+      cfc_pt <- st_centroid(st_make_valid(exp_current()))
+      cc <- exp_cell()
+      cc1 <- st_make_valid(cc) |> 
+        mutate(area_km = as.numeric(st_area(geometry))/1000^2) |>
+        mutate(relative_exp = lease_exp/(area_km/total_lease_exp)) |> 
+        st_transform(crs = 4326)
+      cc_pt <- st_centroid(cc1)
+      
+      # Create the labels for the leases from the data files
+      labels <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
+        cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf_pt$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      labels_current <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
+        cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+      ) %>% lapply(htmltools::HTML)
+      
+      labels_cell <- sprintf(
+        "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
+        cc_pt$lease_holder, cc_pt$lease, cc_pt$lease_exp, cc_pt$relative_exp
+      ) %>% lapply(htmltools::HTML)
+      
+      params <- list(
+        bird = input$spp,
+        SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
+        osa = input$prod_field,
+        lease_holder = input$app_holder,
+        reference_rast = r1,
+        current_rast = rc,
+        exposure_rast = r3,
+        exposure_bcr = exp_bcr(),
+        current_sf = exp_current(),
+        reference_sf = exp_ref(),
+        cell_sf = exp_cell(),
+        production_field = osr |> filter(Area_Name == input$prod_field), 
+        sector_sens = sector_sensitivity(), 
+        linear_sens = linear_sensitivity(),
+        vuln_data = vuln_dat(), 
+        cf_pt = cf_pt, 
+        labels = labels, 
+        cfc_pt = cfc_pt, 
+        labels_current = labels_current, 
+        cc_pt = cc_pt, 
+        labels_cell = labels_cell
+      )
+      
+      vulnerability_report <- "www/vulnerability_report.Rmd"
+    }
     
-    cf <- exp_ref()
-    cf_pt <- st_centroid(st_make_valid(exp_ref()))
-    cfc <- exp_current()
-    cfc_pt <- st_centroid(st_make_valid(exp_current()))
     
-    # Create the labels for the leases from the data files
-    labels <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
-      cf_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf_pt$lease_index
-    ) %>% lapply(htmltools::HTML)
-    
-    labels_current <- sprintf(
-      "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>Exposure index: %s",
-      cfc_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
-    ) %>% lapply(htmltools::HTML)
-    
-    params <- list(
-      bird = input$spp,
-      SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
-      osa = input$prod_field,
-      lease_holder = input$app_holder,
-      reference_rast = r1,
-      exposure_rast = r2,
-      exposure_bcr = exp_bcr(),
-      current_sf = exp_current(),
-      reference_sf = exp_ref(),
-      production_field = osr |> filter(Area_Name == input$prod_field), 
-      sector_sens = sector_sensitivity(), 
-      linear_sens = linear_sensitivity(),
-      vuln_data = vuln_dat(), 
-      cf_pt = cf_pt, 
-      labels = labels, 
-      cfc_pt = cfc_pt, 
-      labels_current = labels_current
-    )
     
     rmarkdown::render(
-      input = "www/vulnerability_report.Rmd",
+      input = vulnerability_report,
       output_format = "html_document",
       output_file = "vulnerability.html",
       output_dir = "www",
@@ -530,65 +593,133 @@ server <- function(input, output, session){
       
       
       # write in temp
-      readme <- readLines("www/vulnerability_readme.txt")
-      exposure_bcr <- st_drop_geometry(exp_bcr())
-      reference_exposure <- exp_ref()
-      current_exposure <- exp_current()
-      writeLines(readme, file.path(tmpdir, "README.txt"))
-      write.csv(exposure_bcr, file = file.path(tmpdir, "exposure_bcr.csv"), row.names = FALSE)
-      st_write(reference_exposure, dsn = file.path(tmpdir, "reference_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
-      st_write(current_exposure, dsn = file.path(tmpdir, "current_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
-      
-      r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
-      r2 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
-      writeRaster(r1, filename = file.path(tmpdir, "reference_sdm_osr.tif"))
-      writeRaster(r2, filename = file.path(tmpdir, "exposure_osr.tif"))
-      
-      
-      
-      write.csv(sector_sensitivity(), file = file.path(tmpdir, "sector_sensitivity.csv"), row.names = FALSE)
-      write.csv(linear_sensitivity(), file = file.path(tmpdir, "linear_sensitivity.csv"), row.names = FALSE)
-      write.csv(vuln_dat(), file = file.path(tmpdir, "cell_exposure_data.csv"), row.names = FALSE)
-      
-      cf <- exp_ref()
-      cf_pt <- st_centroid(st_make_valid(exp_ref()))
-      cfc <- exp_current()
-      cfc_pt <- st_centroid(st_make_valid(exp_current()))
-      
-      # Create the labels for the leases from the data files
-      labels <- sprintf(
-        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-        cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
-      ) %>% lapply(htmltools::HTML)
-      
-      labels_current <- sprintf(
-        "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
-        cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
-      ) %>% lapply(htmltools::HTML)
-      
-      params <- list(
-        bird = input$spp,
-        SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
-        osa = input$prod_field,
-        lease_holder = input$app_holder,
-        reference_rast = r1,
-        exposure_rast = r2,
-        exposure_bcr = exp_bcr(),
-        current_sf = exp_current(),
-        reference_sf = exp_ref(),
-        production_field = osr |> filter(Area_Name == input$prod_field), 
-        sector_sens = sector_sensitivity(), 
-        linear_sens = linear_sensitivity(),
-        vuln_data = vuln_dat(), 
-        cf_pt = cf_pt, 
-        labels = labels, 
-        cfc_pt = cfc_pt, 
-        labels_current = labels_current
-      )
+      if(input$spp == "All species"){
+        # readme <- readLines("www/vulnerability_ms_readme.txt")
+        re <- rast("www/exposure_maps/cell_exposure_sum.tif")
+        pf <- osr |> filter(Area_Name == input$prod_field)
+        # writeLines(readme, file.path(tmpdir, "README.txt"))
+        write.csv(final_abmi_spp_list, file = file.path(tmpdir, "final_abmi_spp_list.csv"), row.names = FALSE)
+        
+        writeRaster(re, filename = file.path(tmpdir, "allSpec_exposure_osr.tif"))
+        
+        exp_allSpec(vulnerability_data_lease |> 
+                      filter(osa == input$prod_field & lease_holder == input$app_holder))
+        
+        ca <- exp_allSpec()
+        ca1 <- ca |> 
+          group_by(lease) |> 
+          summarize(tot_exp = round(sum(lease_exp), 2), geometry = st_union(geometry), lease_holder = unique(lease_holder)) |> 
+          st_make_valid() |> 
+          mutate(area_km = as.numeric(st_area(geometry))/1000^2) |>
+          mutate(relative_exp = round(tot_exp/area_km, 2)) |> 
+          st_transform(crs = 4326)
+        
+        ca_pt <- st_centroid(st_make_valid(ca1))
+        
+        st_write(ca1, dsn = file.path(tmpdir, "allSpecies_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
+        
+        
+        # Create the labels for the leases from the data files
+        labels_allSpec <- sprintf(
+          "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
+          ca_pt$lease_holder, ca_pt$lease, ca_pt$tot_exp, ca_pt$relative_exp
+        ) %>% lapply(htmltools::HTML)
+        
+        params <- list(
+          production_field = osr |> filter(Area_Name == input$prod_field), 
+          lease_holder = input$app_holder,
+          lease_data = ca1, 
+          exposure_rast = re,
+          allSpec_sf = exp_allSpec(), 
+          ca_pt = ca_pt, 
+          labels_allSpec = labels_allSpec, 
+          spp_list = final_abmi_spp_list
+        )
+        
+        vulnerability_report <- "www/vulnerability_ms_report.Rmd"
+        
+      }else{
+        
+        readme <- readLines("www/vulnerability_readme.txt")
+        exposure_bcr <- st_drop_geometry(exp_bcr())
+        reference_exposure <- exp_ref()
+        current_exposure <- exp_current()
+        writeLines(readme, file.path(tmpdir, "README.txt"))
+        write.csv(exposure_bcr, file = file.path(tmpdir, "exposure_bcr.csv"), row.names = FALSE)
+        st_write(reference_exposure, dsn = file.path(tmpdir, "reference_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
+        st_write(current_exposure, dsn = file.path(tmpdir, "current_exposure_lease.shp"), driver = "ESRI Shapefile", delete_layer = TRUE, quiet = TRUE)
+        
+        r1 <- rast(paste0("www/spp_pred_reference/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_reference.tif"))
+        rc <- rast(paste0("www/spp_pred_current/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_osr_current.tif"))
+        r3 <- rast(paste0("www/exposure_maps/", spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID, "_grid_exposure.tif"))
+        writeRaster(r1, filename = file.path(tmpdir, "reference_sdm_osr.tif"))
+        writeRaster(rc, filename = file.path(tmpdir, "current_sdm_osr.tif"))
+        writeRaster(r3, filename = file.path(tmpdir, "exposure_osr.tif"))
+        
+        
+        
+        write.csv(sector_sensitivity(), file = file.path(tmpdir, "sector_sensitivity.csv"), row.names = FALSE)
+        write.csv(linear_sensitivity(), file = file.path(tmpdir, "linear_sensitivity.csv"), row.names = FALSE)
+        write.csv(vuln_dat(), file = file.path(tmpdir, "cell_exposure_data.csv"), row.names = FALSE)
+        
+        cf <- exp_ref()
+        cf_pt <- st_centroid(st_make_valid(exp_ref()))
+        cfc <- exp_current()
+        cfc_pt <- st_centroid(st_make_valid(exp_current()))
+        cc <- exp_cell()
+        cc1 <- st_make_valid(cc) |> 
+          mutate(area_km = as.numeric(st_area(geometry))/1000^2) |>
+          mutate(relative_exp = lease_exp/(area_km/total_lease_exp)) |> 
+          st_transform(crs = 4326)
+        cc_pt <- st_centroid(cc1)
+        
+        # Create the labels for the leases from the data files
+        labels <- sprintf(
+          "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+          cf_pt$lease_holder, cfc_pt$lease, cfc_pt$lease_pop, cfc_pt$lease_pct, cfc_pt$lease_index
+        ) %>% lapply(htmltools::HTML)
+        
+        labels_current <- sprintf(
+          "<strong>Lease holder: %s</strong><br/>Lease no: %s<strong><br/>Lease pop: %s</strong><br/>OSR pct: %s</strong><br/>OSR index: %s",
+          cfc_pt$lease_holder, cf_pt$lease, cf_pt$lease_pop, cf_pt$lease_pct, cf$lease_index
+        ) %>% lapply(htmltools::HTML)
+        
+        labels_cell <- sprintf(
+          "<strong>Lease holder: %s</strong><br/>Lease no: %s</strong><br/>Lease exposure: %s</strong><br/>Lease exposure per square km: %s",
+          cc_pt$lease_holder, cc_pt$lease, cc_pt$lease_exp, cc_pt$relative_exp
+        ) %>% lapply(htmltools::HTML)
+        
+        params <- list(
+          bird = input$spp,
+          SpeciesID = spp_tbl[spp_tbl$CommonName == input$spp, ]$SpeciesID,
+          osa = input$prod_field,
+          lease_holder = input$app_holder,
+          reference_rast = r1,
+          current_rast = rc,
+          exposure_rast = r3,
+          exposure_bcr = exp_bcr(),
+          current_sf = exp_current(),
+          reference_sf = exp_ref(),
+          cell_sf = exp_cell(),
+          production_field = osr |> filter(Area_Name == input$prod_field), 
+          sector_sens = sector_sensitivity(), 
+          linear_sens = linear_sensitivity(),
+          vuln_data = vuln_dat(), 
+          cf_pt = cf_pt, 
+          labels = labels, 
+          cfc_pt = cfc_pt, 
+          labels_current = labels_current, 
+          cc_pt = cc_pt, 
+          labels_cell = labels_cell
+        )
+        
+        vulnerability_report <- "www/vulnerability_report.Rmd"
+        
+      }
       
       # Render the Rmd to a .pdf for downloading
       rmarkdown::render(
-        input = "www/vulnerability_report.Rmd",
+        input = vulnerability_report,
         output_format = "html_document",
         output_file = "vulnerability_report.html",
         output_dir = tmpdir,
