@@ -110,7 +110,7 @@ tagList(
                             selectInput(
                               inputId = "risk_spp", 
                               label = "Select a species", 
-                              choices = risk_species$CommonName, 
+                              choices = c("All species", risk_species$CommonName), 
                               selected = "Black-throated Green Warbler"),
                             selectInput(
                               inputId = "lease_name", 

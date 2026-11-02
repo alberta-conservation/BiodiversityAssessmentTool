@@ -4224,10 +4224,10 @@
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
     "download_code.R": {
-      "checksum": "a87165b7035589b7a5087bb11268c545"
+      "checksum": "7882e70207047e63c24aa89a8d2c438e"
     },
     "global.R": {
-      "checksum": "b3557adea9c3129ba18535fff0cf6bac"
+      "checksum": "e5619c8edf88674d190e40e3b76c873e"
     },
     "README.txt": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -4359,7 +4359,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "832806cc6f37e74fb740a92544d2e9f6"
+      "checksum": "2122c996803ef9f9d053ed12c96f88e8"
     },
     "server_allspec.R": {
       "checksum": "1a66cf27fa50a69c043cbda278f32f49"
@@ -4383,7 +4383,7 @@
       "checksum": "a82bbec832130b9e9c650bec2f87549e"
     },
     "ui.R": {
-      "checksum": "be6dee18ec5ddf720a56470b8a7466e5"
+      "checksum": "39e1753e58ee9e77f3b679be8e387f95"
     },
     "www/abc-program-logo-II.png": {
       "checksum": "bc2e5a78953ea26cc73255abfdf95192"
@@ -4699,6 +4699,15 @@
     },
     "www/data/sysdata.rda": {
       "checksum": "9b1b4e18ae8a9a8c4c6080ab51fd06ba"
+    },
+    "www/data/total_risk_lease.rda": {
+      "checksum": "78c0e8df759cf5593f84963d134fb332"
+    },
+    "www/data/total_risk_lease_area.rda": {
+      "checksum": "282b79c06cecd00da6dfb6e4b6a062c4"
+    },
+    "www/data/total_risk_osr.rda": {
+      "checksum": "42e28305cf994e1d0c844de00d7ff6c5"
     },
     "www/data/vulnerability_data.rda": {
       "checksum": "71d0ef761fa6e341040afac5c2c71d29"
