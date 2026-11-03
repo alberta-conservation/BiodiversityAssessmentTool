@@ -16,13 +16,13 @@ Vulnerability is assessed in terms of population-level exposure to oil sands dis
 
 <br> 
 
-There are three distinct components of the OSR Biodiversity Assessment Tool: 
+There are four distinct components of the OSR Biodiversity Assessment Tool: 
 
 **1. Vulnerability:** Quantification of the population-level spatial exposure to oil sands disturbance for the selected species, including for current oil sands lease areas, and a brief review of known or inferred responses to typical oil sands disturbances. 
 
 **2. Risk Assessment:** If available, model-based estimates of the probability (i.e. *Risk*) of specific levels of population loss under different scenarios of oil sands development and assumptions about other disturbance and succession processes. 
 
-**3. Recommendations:** Recommendations for mitigating risks to species populations based on known sensitivities and risk levels, based on the mitigation hierarchy (Avoid, Minimize, Remediate, Offset) 
+**3. Mitigation:** Information about mitigating risks to species populations based on known sensitivities and risk levels, using the mitigation hierarchy (Avoid, Minimize, Remediate, Offset). **This component of the tool is the next phase of development, and is not yet operational**
 
 **4. Species of Special Concern:** Some species that are already known to have unique needs or that are especially at risk may not fit well into the general framework outlined above. For these we outline what is known and highlight ongoing research meant to address important gaps in our knowledge. 
 
