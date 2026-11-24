@@ -97,6 +97,3 @@ pctDecline_fxn_sim <- function(spp, baseline_scenario, comp_scenario, prop_decli
   
   return(risk)
 }
-
-
-

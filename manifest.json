@@ -1341,10 +1341,11 @@
       "description": {
         "Package": "gdtools",
         "Title": "Font Metrics and Font Management Utilities for R Graphics",
-        "Version": "0.5.3",
-        "Authors@R": "c(\n    person(\"David\", \"Gohel\", , \"david.gohel@ardata.fr\", role = c(\"aut\", \"cre\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = \"aut\"),\n    person(\"Lionel\", \"Henry\", , \"lionel@rstudio.com\", role = \"aut\"),\n    person(\"Jeroen\", \"Ooms\", , \"jeroen@berkeley.edu\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Yixuan\", \"Qiu\", role = \"ctb\"),\n    person(\"ArData\", role = \"cph\"),\n    person(\"RStudio\", role = \"cph\")\n  )",
-        "Description": "Compute text metrics (width, ascent, descent) from font\n    files with 'FreeType', independently of the active graphic device.\n    Font lookup is delegated to 'systemfonts'. Additional utilities let users\n    register 'Google Fonts' or bundled 'Liberation' fonts, check font\n    availability, and assemble 'htmlDependency' objects so that fonts are\n    correctly embedded in 'Shiny' applications, 'R Markdown' documents,\n    and 'htmlwidgets' outputs such as 'ggiraph'.",
+        "Version": "0.6.0",
+        "Authors@R": "c(\n    person(\"David\", \"Gohel\", , \"david.gohel@ardata.fr\", role = c(\"aut\", \"cre\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = \"aut\"),\n    person(\"Lionel\", \"Henry\", , \"lionel@rstudio.com\", role = \"aut\"),\n    person(\"Jeroen\", \"Ooms\", , \"jeroen@berkeley.edu\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Yixuan\", \"Qiu\", role = \"ctb\"),\n    person(\"ArData\", role = \"cph\"),\n    person(\"RStudio\", role = \"cph\"),\n    person(\"The STIX Fonts Project Authors\", role = \"cph\",\n           comment = \"STIX Two Math font, see file COPYRIGHTS\")\n  )",
+        "Description": "Compute text metrics (width, ascent, descent), with or\n    without kerning, from font files with 'FreeType', independently of the\n    active graphic device. Font lookup is delegated to 'systemfonts'.\n    Additional utilities let users register 'Google Fonts', the bundled\n    'Liberation' fonts or the bundled math font 'STIX Two Math', check font\n    availability, and assemble 'htmlDependency' objects so that fonts are\n    correctly embedded in 'Shiny' applications, 'R Markdown' documents,\n    and 'htmlwidgets' outputs such as 'ggiraph'.",
         "License": "GPL-3 | file LICENSE",
+        "Copyright": "See file COPYRIGHTS",
         "URL": "https://davidgohel.github.io/gdtools/",
         "BugReports": "https://github.com/davidgohel/gdtools/issues",
         "Depends": "R (>= 4.0.0)",
@@ -1355,18 +1356,18 @@
         "Encoding": "UTF-8",
         "SystemRequirements": "freetype2",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-11-05 13:28:14 UTC; davidgohel",
-        "Author": "David Gohel [aut, cre],\n  Hadley Wickham [aut],\n  Lionel Henry [aut],\n  Jeroen Ooms [aut] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Yixuan Qiu [ctb],\n  ArData [cph],\n  RStudio [cph]",
+        "Packaged": "2026-11-13 14:13:08 UTC; davidgohel",
+        "Author": "David Gohel [aut, cre],\n  Hadley Wickham [aut],\n  Lionel Henry [aut],\n  Jeroen Ooms [aut] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Yixuan Qiu [ctb],\n  ArData [cph],\n  RStudio [cph],\n  The STIX Fonts Project Authors [cph] (STIX Two Math font, see file\n    COPYRIGHTS)",
         "Maintainer": "David Gohel <david.gohel@ardata.fr>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-11-05 14:10:02 UTC",
-        "Built": "R 4.6.2; x86_64-w64-mingw32; 2026-11-09 00:54:03 UTC; windows",
+        "Date/Publication": "2026-11-13 15:20:02 UTC",
+        "Built": "R 4.6.2; x86_64-w64-mingw32; 2026-11-14 00:51:58 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "gdtools",
         "RemoteRef": "gdtools",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha.Version": "0.5.3"
+        "RemoteSha.Version": "0.6.0"
       }
     },
     "generics": {
@@ -1403,7 +1404,7 @@
       "description": {
         "Package": "ggplot2",
         "Title": "Create Elegant Data Visualisations Using the Grammar of Graphics",
-        "Version": "4.0.3",
+        "Version": "4.0.4",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Winston\", \"Chang\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-1576-2126\")),\n    person(\"Lionel\", \"Henry\", role = \"aut\"),\n    person(\"Thomas Lin\", \"Pedersen\", , \"thomas.pedersen@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-5147-4711\")),\n    person(\"Kohske\", \"Takahashi\", role = \"aut\"),\n    person(\"Claus\", \"Wilke\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-7470-9261\")),\n    person(\"Kara\", \"Woo\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-5125-4188\")),\n    person(\"Hiroaki\", \"Yutani\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-3385-7233\")),\n    person(\"Dewey\", \"Dunnington\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-9415-4582\")),\n    person(\"Teun\", \"van den Brand\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-9335-7468\")),\n    person(\"Posit, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\"))\n  )",
         "Description": "A system for 'declaratively' creating graphics, based on \"The\n    Grammar of Graphics\". You provide the data, tell 'ggplot2' how to map\n    variables to aesthetics, what graphical primitives to use, and it\n    takes care of the details.",
         "License": "MIT + file LICENSE",
@@ -1422,12 +1423,12 @@
         "RoxygenNote": "7.3.3",
         "Collate": "'ggproto.R' 'ggplot-global.R' 'aaa-.R'\n'aes-colour-fill-alpha.R' 'aes-evaluation.R'\n'aes-group-order.R' 'aes-linetype-size-shape.R'\n'aes-position.R' 'all-classes.R' 'compat-plyr.R' 'utilities.R'\n'aes.R' 'annotation-borders.R' 'utilities-checks.R'\n'legend-draw.R' 'geom-.R' 'annotation-custom.R'\n'annotation-logticks.R' 'scale-type.R' 'layer.R'\n'make-constructor.R' 'geom-polygon.R' 'geom-map.R'\n'annotation-map.R' 'geom-raster.R' 'annotation-raster.R'\n'annotation.R' 'autolayer.R' 'autoplot.R' 'axis-secondary.R'\n'backports.R' 'bench.R' 'bin.R' 'coord-.R' 'coord-cartesian-.R'\n'coord-fixed.R' 'coord-flip.R' 'coord-map.R' 'coord-munch.R'\n'coord-polar.R' 'coord-quickmap.R' 'coord-radial.R'\n'coord-sf.R' 'coord-transform.R' 'data.R' 'docs_layer.R'\n'facet-.R' 'facet-grid-.R' 'facet-null.R' 'facet-wrap.R'\n'fortify-map.R' 'fortify-models.R' 'fortify-spatial.R'\n'fortify.R' 'stat-.R' 'geom-abline.R' 'geom-rect.R'\n'geom-bar.R' 'geom-tile.R' 'geom-bin2d.R' 'geom-blank.R'\n'geom-boxplot.R' 'geom-col.R' 'geom-path.R' 'geom-contour.R'\n'geom-point.R' 'geom-count.R' 'geom-crossbar.R'\n'geom-segment.R' 'geom-curve.R' 'geom-defaults.R'\n'geom-ribbon.R' 'geom-density.R' 'geom-density2d.R'\n'geom-dotplot.R' 'geom-errorbar.R' 'geom-freqpoly.R'\n'geom-function.R' 'geom-hex.R' 'geom-histogram.R'\n'geom-hline.R' 'geom-jitter.R' 'geom-label.R'\n'geom-linerange.R' 'geom-pointrange.R' 'geom-quantile.R'\n'geom-rug.R' 'geom-sf.R' 'geom-smooth.R' 'geom-spoke.R'\n'geom-text.R' 'geom-violin.R' 'geom-vline.R'\n'ggplot2-package.R' 'grob-absolute.R' 'grob-dotstack.R'\n'grob-null.R' 'grouping.R' 'properties.R' 'margins.R'\n'theme-elements.R' 'guide-.R' 'guide-axis.R'\n'guide-axis-logticks.R' 'guide-axis-stack.R'\n'guide-axis-theta.R' 'guide-legend.R' 'guide-bins.R'\n'guide-colorbar.R' 'guide-colorsteps.R' 'guide-custom.R'\n'guide-none.R' 'guide-old.R' 'guides-.R' 'guides-grid.R'\n'hexbin.R' 'import-standalone-obj-type.R'\n'import-standalone-types-check.R' 'labeller.R' 'labels.R'\n'layer-sf.R' 'layout.R' 'limits.R' 'performance.R'\n'plot-build.R' 'plot-construction.R' 'plot-last.R' 'plot.R'\n'position-.R' 'position-collide.R' 'position-dodge.R'\n'position-dodge2.R' 'position-identity.R' 'position-jitter.R'\n'position-jitterdodge.R' 'position-nudge.R' 'position-stack.R'\n'quick-plot.R' 'reshape-add-margins.R' 'save.R' 'scale-.R'\n'scale-alpha.R' 'scale-binned.R' 'scale-brewer.R'\n'scale-colour.R' 'scale-continuous.R' 'scale-date.R'\n'scale-discrete-.R' 'scale-expansion.R' 'scale-gradient.R'\n'scale-grey.R' 'scale-hue.R' 'scale-identity.R'\n'scale-linetype.R' 'scale-linewidth.R' 'scale-manual.R'\n'scale-shape.R' 'scale-size.R' 'scale-steps.R' 'scale-view.R'\n'scale-viridis.R' 'scales-.R' 'stat-align.R' 'stat-bin.R'\n'stat-summary-2d.R' 'stat-bin2d.R' 'stat-bindot.R'\n'stat-binhex.R' 'stat-boxplot.R' 'stat-connect.R'\n'stat-contour.R' 'stat-count.R' 'stat-density-2d.R'\n'stat-density.R' 'stat-ecdf.R' 'stat-ellipse.R'\n'stat-function.R' 'stat-identity.R' 'stat-manual.R'\n'stat-qq-line.R' 'stat-qq.R' 'stat-quantilemethods.R'\n'stat-sf-coordinates.R' 'stat-sf.R' 'stat-smooth-methods.R'\n'stat-smooth.R' 'stat-sum.R' 'stat-summary-bin.R'\n'stat-summary-hex.R' 'stat-summary.R' 'stat-unique.R'\n'stat-ydensity.R' 'summarise-plot.R' 'summary.R' 'theme.R'\n'theme-defaults.R' 'theme-current.R' 'theme-sub.R'\n'utilities-break.R' 'utilities-grid.R' 'utilities-help.R'\n'utilities-patterns.R' 'utilities-resolution.R'\n'utilities-tidy-eval.R' 'zxx.R' 'zzz.R'",
         "NeedsCompilation": "no",
-        "Packaged": "2026-04-21 12:47:29 UTC; thomas",
+        "Packaged": "2026-11-11 10:47:46 UTC; thomas",
         "Author": "Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Winston Chang [aut] (ORCID: <https://orcid.org/0000-0002-1576-2126>),\n  Lionel Henry [aut],\n  Thomas Lin Pedersen [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-5147-4711>),\n  Kohske Takahashi [aut],\n  Claus Wilke [aut] (ORCID: <https://orcid.org/0000-0002-7470-9261>),\n  Kara Woo [aut] (ORCID: <https://orcid.org/0000-0002-5125-4188>),\n  Hiroaki Yutani [aut] (ORCID: <https://orcid.org/0000-0002-3385-7233>),\n  Dewey Dunnington [aut] (ORCID: <https://orcid.org/0000-0002-9415-4582>),\n  Teun van den Brand [aut] (ORCID:\n    <https://orcid.org/0000-0002-9335-7468>),\n  Posit, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
         "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-04-22 09:10:03 UTC",
-        "Built": "R 4.6.1; ; 2026-09-29 13:54:50 UTC; windows"
+        "Date/Publication": "2026-11-14 00:20:15 UTC",
+        "Built": "R 4.6.2; ; 2026-11-14 00:51:47 UTC; windows"
       }
     },
     "glue": {
@@ -3523,7 +3524,7 @@
         "Type": "Package",
         "Package": "systemfonts",
         "Title": "System Native Font Finding",
-        "Version": "1.3.2",
+        "Version": "1.3.3",
         "Authors@R": "c(\n    person(\"Thomas Lin\", \"Pedersen\", , \"thomas.pedersen@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-5147-4711\")),\n    person(\"Jeroen\", \"Ooms\", , \"jeroen@berkeley.edu\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Devon\", \"Govett\", role = \"aut\",\n           comment = \"Author of font-manager\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\"))\n  )",
         "Description": "Provides system native access to the font catalogue. As font\n    handling varies between systems it is difficult to correctly locate\n    installed fonts across different operating systems. The 'systemfonts'\n    package provides bindings to the native libraries on Windows, macOS\n    and Linux for finding font files that can then be used further by e.g.\n    graphic devices. The main use is intended to be from compiled code but\n    'systemfonts' also provides access from R.",
         "License": "MIT + file LICENSE",
@@ -3531,23 +3532,28 @@
         "BugReports": "https://github.com/r-lib/systemfonts/issues",
         "Depends": "R (>= 3.2.0)",
         "Imports": "base64enc, grid, jsonlite, lifecycle, tools, utils",
-        "Suggests": "covr, farver, ggplot2, graphics, knitr, ragg, rmarkdown,\nsvglite, testthat (>= 2.1.0)",
+        "Suggests": "covr, farver, ggplot2, graphics, knitr, ragg, rmarkdown,\nsvglite, testthat (>= 3.2.0)",
         "LinkingTo": "cpp11 (>= 0.2.1)",
         "VignetteBuilder": "knitr",
         "Config/build/compilation-database": "true",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/usethis/last-upkeep": "2025-04-23",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
         "SystemRequirements": "fontconfig, freetype2",
+        "Config/roxygen2/version": "8.1.1",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-03-05 12:24:52 UTC; thomas",
+        "Packaged": "2026-11-16 08:26:34 UTC; thomas",
         "Author": "Thomas Lin Pedersen [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-5147-4711>),\n  Jeroen Ooms [aut] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Devon Govett [aut] (Author of font-manager),\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
         "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-03-05 13:10:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-09-29 13:33:53 UTC; windows",
-        "Archs": "x64"
+        "Date/Publication": "2026-11-16 10:00:02 UTC",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-11-16 20:28:18 UTC; windows",
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "systemfonts",
+        "RemoteRef": "systemfonts",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha.Version": "1.3.3"
       }
     },
     "terra": {
@@ -4284,10 +4290,13 @@
       "checksum": "7ec3be0cc38e12ad2a1d46c63e53e66d"
     },
     "download_code.R": {
-      "checksum": "67ed2f018b527bca56585d6585c08608"
+      "checksum": "35aff098fd31f05bd786a196972aba78"
     },
     "global.R": {
-      "checksum": "1c62c395a1b57fede56ec882ee994d37"
+      "checksum": "d0fecea3b260b457494b6b4e71a25d6e"
+    },
+    "global_updated.R": {
+      "checksum": "d897bee9dde8ccc542e4a2c58017c9f8"
     },
     "README.txt": {
       "checksum": "c58c9c26eb95bb6bb7e9d33ebd95ea26"
@@ -4419,7 +4428,7 @@
       "checksum": "3d63eced3e37101c5ebd48e88b6c764f"
     },
     "server.R": {
-      "checksum": "e26fc20ae88335f8a704d8f0b42b3f4b"
+      "checksum": "23746616330b4860697d79d44a5fe5d2"
     },
     "server_allspec.R": {
       "checksum": "1a66cf27fa50a69c043cbda278f32f49"
@@ -4460,149 +4469,452 @@
     "www/app_design.png": {
       "checksum": "2ba71a905e9759b5964609d03a8853af"
     },
-    "www/bam_v5_4326/ALFL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/ALFL_can61_2020.tif": {
       "checksum": "4c7bd535269358ffa5ad9b58850ea1b4"
     },
-    "www/bam_v5_4326/ATTW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/ATTW_can61_2020.tif": {
       "checksum": "595ce3c1ac3635068030ef34d739f7cf"
     },
-    "www/bam_v5_4326/BAWW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BAWW_can61_2020.tif": {
       "checksum": "1f696ed11accaec1366eeba917479669"
     },
-    "www/bam_v5_4326/BBWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BBWA_can61_2020.tif": {
       "checksum": "62bed7e818ab561bd3886179bfcc9aa4"
     },
-    "www/bam_v5_4326/BBWO_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BBWO_can61_2020.tif": {
       "checksum": "81cf2897cacc76bc4fa114a9ea5f01fc"
     },
-    "www/bam_v5_4326/BCCH_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BCCH_can61_2020.tif": {
       "checksum": "dafd89ce062ed74cec77499ada17c5ca"
     },
-    "www/bam_v5_4326/BHVI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BHVI_can61_2020.tif": {
       "checksum": "15ab3d20f703496e30d4646bb74019b6"
     },
-    "www/bam_v5_4326/BLBW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BLBW_can61_2020.tif": {
       "checksum": "7970d16e209648432b620a68d84f5388"
     },
-    "www/bam_v5_4326/BLPW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BLPW_can61_2020.tif": {
       "checksum": "ad9888aab2066a91ed7f785eb013b6f8"
     },
-    "www/bam_v5_4326/BOBO_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BOBO_can61_2020.tif": {
       "checksum": "0291677cb546e832f913142dfc05a828"
     },
-    "www/bam_v5_4326/BOCH_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BOCH_can61_2020.tif": {
       "checksum": "51f89811f7f566325ba3c5fb691ac028"
     },
-    "www/bam_v5_4326/BRCR_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BRCR_can61_2020.tif": {
       "checksum": "81efc7638e31acc67bdeb8055f089f8e"
     },
-    "www/bam_v5_4326/BTNW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/BTNW_can61_2020.tif": {
       "checksum": "1fa14a015975152f7b5fed1f80e6772e"
     },
-    "www/bam_v5_4326/CAWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/CAWA_can61_2020.tif": {
       "checksum": "754d99ea9e98a0123bd3f2a755b7dba4"
     },
-    "www/bam_v5_4326/CHSP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/CHSP_can61_2020.tif": {
       "checksum": "84d881644c53bc6c4a8f0abf3a13e845"
     },
-    "www/bam_v5_4326/CONW_can61_2020.tif": {
+    "www/archive/bam_v5_4326/CONW_can61_2020.tif": {
       "checksum": "55552f4c363a93839129e2f07a6feef3"
     },
-    "www/bam_v5_4326/EVGR_can61_2020.tif": {
+    "www/archive/bam_v5_4326/EVGR_can61_2020.tif": {
       "checksum": "63e5ea29649d21dc0aaa88abe8acd543"
     },
-    "www/bam_v5_4326/FOSP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/FOSP_can61_2020.tif": {
       "checksum": "f1f42fb80c8ceecef4b498e5dd99a624"
     },
-    "www/bam_v5_4326/GCKI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/GCKI_can61_2020.tif": {
       "checksum": "ce7d69cdc75e9c595bbfe3df6c6f4d91"
     },
-    "www/bam_v5_4326/GRYE_can61_2020.tif": {
+    "www/archive/bam_v5_4326/GRYE_can61_2020.tif": {
       "checksum": "a603ad3674363480814b921de3c7bd3b"
     },
-    "www/bam_v5_4326/LEFL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/LEFL_can61_2020.tif": {
       "checksum": "afcf49881b02ef86d108b66baea57437"
     },
-    "www/bam_v5_4326/LISP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/LISP_can61_2020.tif": {
       "checksum": "2fad999da018177555529b252b881311"
     },
-    "www/bam_v5_4326/NESP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/NESP_can61_2020.tif": {
       "checksum": "53dd1d970ef872a762ac83bd94cb86ed"
     },
-    "www/bam_v5_4326/NOFL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/NOFL_can61_2020.tif": {
       "checksum": "8258d1baca884d2bd627077838933501"
     },
-    "www/bam_v5_4326/NOWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/NOWA_can61_2020.tif": {
       "checksum": "1e469ea0ce85270f7913147a652f2451"
     },
-    "www/bam_v5_4326/OCWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/OCWA_can61_2020.tif": {
       "checksum": "8985017b0ad98bbc700443013659cdc4"
     },
-    "www/bam_v5_4326/OSFL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/OSFL_can61_2020.tif": {
       "checksum": "73cd1fbf8be626bfa6e2ea7e88e24601"
     },
-    "www/bam_v5_4326/OVEN_can61_2020.tif": {
+    "www/archive/bam_v5_4326/OVEN_can61_2020.tif": {
       "checksum": "5abe1dcc11e39b012051158fe9db4f5c"
     },
-    "www/bam_v5_4326/PAWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/PAWA_can61_2020.tif": {
       "checksum": "58a3a47e52e9984dd90bd5c416ab1827"
     },
-    "www/bam_v5_4326/PISI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/PISI_can61_2020.tif": {
       "checksum": "2490d44716fb0fe55e89b74b5ca49fca"
     },
-    "www/bam_v5_4326/PUFI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/PUFI_can61_2020.tif": {
       "checksum": "efe57a10c92197e00a37136207a3aa47"
     },
-    "www/bam_v5_4326/RCKI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/RCKI_can61_2020.tif": {
       "checksum": "d1549b9cda70643b6f5456b031f78e36"
     },
-    "www/bam_v5_4326/RUBL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/RUBL_can61_2020.tif": {
       "checksum": "ee2350011e40e43c267da0e00d2a42ca"
     },
-    "www/bam_v5_4326/RUGR_can61_2020.tif": {
+    "www/archive/bam_v5_4326/RUGR_can61_2020.tif": {
       "checksum": "637e3bf040c3c9667cf68fe44ae07bc3"
     },
-    "www/bam_v5_4326/SAVS_can61_2020.tif": {
+    "www/archive/bam_v5_4326/SAVS_can61_2020.tif": {
       "checksum": "d97f40bd5724e166eb971dbe654bc545"
     },
-    "www/bam_v5_4326/SOSA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/SOSA_can61_2020.tif": {
       "checksum": "6990b421c412c36a8409b961dd31cbe2"
     },
-    "www/bam_v5_4326/SWTH_can61_2020.tif": {
+    "www/archive/bam_v5_4326/SWTH_can61_2020.tif": {
       "checksum": "08d915205ba3c4eb983f3535c57e44c8"
     },
-    "www/bam_v5_4326/TEWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/TEWA_can61_2020.tif": {
       "checksum": "3fe92a16d97dd526ad59b0c2e58d73cd"
     },
-    "www/bam_v5_4326/TRES_can61_2020.tif": {
+    "www/archive/bam_v5_4326/TRES_can61_2020.tif": {
       "checksum": "b327c8861a2ff9cd7c2819e57c8cd5a4"
     },
-    "www/bam_v5_4326/VATH_can61_2020.tif": {
+    "www/archive/bam_v5_4326/VATH_can61_2020.tif": {
       "checksum": "69cc3ff75e3c0a1d9ec8343e2cde7a4c"
     },
-    "www/bam_v5_4326/VESP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/VESP_can61_2020.tif": {
       "checksum": "a8f9d09e640ac0e9bbb024072fcdc8a1"
     },
-    "www/bam_v5_4326/WAVI_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WAVI_can61_2020.tif": {
       "checksum": "ccfd9390c9606c418fcfe7357e0cbbc7"
     },
-    "www/bam_v5_4326/WCSP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WCSP_can61_2020.tif": {
       "checksum": "de9fae5f0231b5640cda06dbd152b1c1"
     },
-    "www/bam_v5_4326/WEWP_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WEWP_can61_2020.tif": {
       "checksum": "806a7958ae2c3850048d39f911a91ab0"
     },
-    "www/bam_v5_4326/WIWA_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WIWA_can61_2020.tif": {
       "checksum": "3b0a45b2f9cd96eaea141868831e3d6d"
     },
-    "www/bam_v5_4326/WIWR_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WIWR_can61_2020.tif": {
       "checksum": "923a8196b7254f0a3e2038a1a1194ab5"
     },
-    "www/bam_v5_4326/WWCR_can61_2020.tif": {
+    "www/archive/bam_v5_4326/WWCR_can61_2020.tif": {
       "checksum": "f678dee4a4a4c771b037e9c3f1bb75f2"
     },
-    "www/bam_v5_4326/YBFL_can61_2020.tif": {
+    "www/archive/bam_v5_4326/YBFL_can61_2020.tif": {
       "checksum": "699c3a45c36778259c0dc33b166c6cd1"
+    },
+    "www/bam_v5_4326/ALFL_can72_2020.tif": {
+      "checksum": "bfaf547790ed1eb80b269676222728ef"
+    },
+    "www/bam_v5_4326/AMCR_can72_2020.tif": {
+      "checksum": "89bb44e44ede863d0d4767aa8c00f1f1"
+    },
+    "www/bam_v5_4326/AMGO_can72_2020.tif": {
+      "checksum": "0576c78a0b1e90fdf0ee62c52ee40703"
+    },
+    "www/bam_v5_4326/AMRE_can72_2020.tif": {
+      "checksum": "e42c6bda2884fceb5b362f2c6cc5a653"
+    },
+    "www/bam_v5_4326/AMRO_can72_2020.tif": {
+      "checksum": "207b134f19964287c62e309c3d0b348d"
+    },
+    "www/bam_v5_4326/ATTW_can72_2020.tif": {
+      "checksum": "9399be0969fa95b266172427345fa0c7"
+    },
+    "www/bam_v5_4326/BANS_can72_2020.tif": {
+      "checksum": "b8fa859bbb453c498eaf684ab3740678"
+    },
+    "www/bam_v5_4326/BAOR_can72_2020.tif": {
+      "checksum": "6e44aa330080fcd45d57693ab342a175"
+    },
+    "www/bam_v5_4326/BARS_can72_2020.tif": {
+      "checksum": "fa644556896198b2a76981fde63983ba"
+    },
+    "www/bam_v5_4326/BAWW_can72_2020.tif": {
+      "checksum": "12746e412da0e1f79bf469ff4958c210"
+    },
+    "www/bam_v5_4326/BBMA_can72_2020.tif": {
+      "checksum": "e99c4cfdc92acec7814b97e77d1cdfce"
+    },
+    "www/bam_v5_4326/BBWA_can72_2020.tif": {
+      "checksum": "cdcdf12d28fe2fbd9536e0b44135aaef"
+    },
+    "www/bam_v5_4326/BBWO_can72_2020.tif": {
+      "checksum": "7cbf0190a91b994a1246163b2a2554f8"
+    },
+    "www/bam_v5_4326/BCCH_can72_2020.tif": {
+      "checksum": "b3a192230978533bca62c7a6b96e6a72"
+    },
+    "www/bam_v5_4326/BHCO_can72_2020.tif": {
+      "checksum": "f42988edda240ab7e7bc262745e0a9f0"
+    },
+    "www/bam_v5_4326/BHVI_can72_2020.tif": {
+      "checksum": "77d0832aad7c3ffaa6825a573f0a54a1"
+    },
+    "www/bam_v5_4326/BLBW_can72_2020.tif": {
+      "checksum": "9e56b3e2a3f55073f4715f55475ec2bf"
+    },
+    "www/bam_v5_4326/BLJA_can72_2020.tif": {
+      "checksum": "84c951d5980de0f22c5784c1c4173712"
+    },
+    "www/bam_v5_4326/BLPW_can72_2020.tif": {
+      "checksum": "ffaaf78c0f1478b0cb4b82253fee5fc4"
+    },
+    "www/bam_v5_4326/BOBO_can72_2020.tif": {
+      "checksum": "7c758472f145597131ec8eb781cd6afb"
+    },
+    "www/bam_v5_4326/BOCH_can72_2020.tif": {
+      "checksum": "8829f00507407e950535413a543077bb"
+    },
+    "www/bam_v5_4326/BRBL_can72_2020.tif": {
+      "checksum": "13258693e7a71e72cf7ce2bffe929f5d"
+    },
+    "www/bam_v5_4326/BRCR_can72_2020.tif": {
+      "checksum": "b8739aeb4f6f2b2925fa1026b67defcd"
+    },
+    "www/bam_v5_4326/BRTH_can72_2020.tif": {
+      "checksum": "ffb0056bf57244a64860bb0318167db3"
+    },
+    "www/bam_v5_4326/BTNW_can72_2020.tif": {
+      "checksum": "925480958ff6df40c1c59602af620ced"
+    },
+    "www/bam_v5_4326/CAWA_can72_2020.tif": {
+      "checksum": "994200fccd19395cc946c8de287b365a"
+    },
+    "www/bam_v5_4326/CCSP_can72_2020.tif": {
+      "checksum": "57015ca658ba45e5922af2d0fc7b3948"
+    },
+    "www/bam_v5_4326/CEDW_can72_2020.tif": {
+      "checksum": "511cc8577ff40023669267cd7670c5f9"
+    },
+    "www/bam_v5_4326/CHSP_can72_2020.tif": {
+      "checksum": "ee1cd71d2699298fba20e7b8b08d0ab1"
+    },
+    "www/bam_v5_4326/CMWA_can72_2020.tif": {
+      "checksum": "93a3ea77959e96aab1304d22db124307"
+    },
+    "www/bam_v5_4326/COGR_can72_2020.tif": {
+      "checksum": "92e1cf049fec30c775e928e492c4b1f2"
+    },
+    "www/bam_v5_4326/CONW_can72_2020.tif": {
+      "checksum": "d16033c719c82e0a535a618e188d40ec"
+    },
+    "www/bam_v5_4326/CORA_can72_2020.tif": {
+      "checksum": "c4d37d5816f623463a758608eca55aa6"
+    },
+    "www/bam_v5_4326/COYE_can72_2020.tif": {
+      "checksum": "ec36de187913e10f068a22dba4d2c848"
+    },
+    "www/bam_v5_4326/CSWA_can72_2020.tif": {
+      "checksum": "1b518d4f103287cf7dc9e58e68102b48"
+    },
+    "www/bam_v5_4326/DEJU_can72_2020.tif": {
+      "checksum": "1de1e40e840cec36964c10eaeeacfd09"
+    },
+    "www/bam_v5_4326/DOWO_can72_2020.tif": {
+      "checksum": "ae0a6a604b66e93db0f310a274a0e458"
+    },
+    "www/bam_v5_4326/EAKI_can72_2020.tif": {
+      "checksum": "591051baba1575274e5388e6ea5ac4dd"
+    },
+    "www/bam_v5_4326/EAPH_can72_2020.tif": {
+      "checksum": "bf3917c14983f6435f56ee6cb1aa4d44"
+    },
+    "www/bam_v5_4326/EUST_can72_2020.tif": {
+      "checksum": "0a69de4f85d0d6d95f4012034f5b465f"
+    },
+    "www/bam_v5_4326/EVGR_can72_2020.tif": {
+      "checksum": "bdbee67085ecec7d4f00644cfbfaa937"
+    },
+    "www/bam_v5_4326/FOSP_can72_2020.tif": {
+      "checksum": "3e4410e5327dc846dc7ffb2171177bfa"
+    },
+    "www/bam_v5_4326/GCKI_can72_2020.tif": {
+      "checksum": "6a941904a287a473f1f1bd4eb90c5bbe"
+    },
+    "www/bam_v5_4326/GRCA_can72_2020.tif": {
+      "checksum": "a25a59c63b650b4ca2df2bc4b36e807f"
+    },
+    "www/bam_v5_4326/GRYE_can72_2020.tif": {
+      "checksum": "5b6239125383b6a769a2536fb2b73db0"
+    },
+    "www/bam_v5_4326/HAWO_can72_2020.tif": {
+      "checksum": "a06cce21a923b1201a17439bfc639da2"
+    },
+    "www/bam_v5_4326/HETH_can72_2020.tif": {
+      "checksum": "be0884599c6f805e4165e77ea9f50443"
+    },
+    "www/bam_v5_4326/HOLA_can72_2020.tif": {
+      "checksum": "43a4752947bebffff6bdb24b96ea7de3"
+    },
+    "www/bam_v5_4326/HOSP_can72_2020.tif": {
+      "checksum": "fde8fc1011c09ab0eb40fe03b052d132"
+    },
+    "www/bam_v5_4326/HOWR_can72_2020.tif": {
+      "checksum": "23a9ddadaa59434e14836a70f665231a"
+    },
+    "www/bam_v5_4326/KILL_can72_2020.tif": {
+      "checksum": "0ca7994b0aff245d0585c361f5b0e1e6"
+    },
+    "www/bam_v5_4326/LEFL_can72_2020.tif": {
+      "checksum": "6e6234ea8e70d6499e718b206724f693"
+    },
+    "www/bam_v5_4326/LISP_can72_2020.tif": {
+      "checksum": "fa44c8e91e49c2b6efc145bb4cd05968"
+    },
+    "www/bam_v5_4326/MAWA_can72_2020.tif": {
+      "checksum": "656f488048cbba80979703c768dba839"
+    },
+    "www/bam_v5_4326/MAWR_can72_2020.tif": {
+      "checksum": "ebf772375da46b0f5e7135eb5cb20051"
+    },
+    "www/bam_v5_4326/MODO_can72_2020.tif": {
+      "checksum": "f3a64190e05e18539d1eb00c8e4e42d8"
+    },
+    "www/bam_v5_4326/MOWA_can72_2020.tif": {
+      "checksum": "1b1c92e85322513fedb119168c74368a"
+    },
+    "www/bam_v5_4326/NOFL_can72_2020.tif": {
+      "checksum": "51298165f755c6e31ae7d1cddf6f30d0"
+    },
+    "www/bam_v5_4326/NOWA_can72_2020.tif": {
+      "checksum": "551fc38722f62a15c58198f4b931c3c9"
+    },
+    "www/bam_v5_4326/OCWA_can72_2020.tif": {
+      "checksum": "88841e331184aecf86583cee77b42bf1"
+    },
+    "www/bam_v5_4326/OSFL_can72_2020.tif": {
+      "checksum": "2c8df1b67dd1660244afd6e4efe49ef0"
+    },
+    "www/bam_v5_4326/OVEN_can72_2020.tif": {
+      "checksum": "fbf09753af88c36ed07609579f6c6eed"
+    },
+    "www/bam_v5_4326/PAWA_can72_2020.tif": {
+      "checksum": "287d955ba74f251f3400e99573028792"
+    },
+    "www/bam_v5_4326/PHVI_can72_2020.tif": {
+      "checksum": "0093d48d76a6ca1cbbf1f03c61d56c27"
+    },
+    "www/bam_v5_4326/PISI_can72_2020.tif": {
+      "checksum": "01c265471ad19183c997c5b310c2283a"
+    },
+    "www/bam_v5_4326/PIWO_can72_2020.tif": {
+      "checksum": "8986bfd6c2ef3256ac63b7e3da206a8f"
+    },
+    "www/bam_v5_4326/RBGR_can72_2020.tif": {
+      "checksum": "f118279852eacf126cab1dfe488b02f8"
+    },
+    "www/bam_v5_4326/RBNU_can72_2020.tif": {
+      "checksum": "5544d2f1924bb4125ed9c76e55e42609"
+    },
+    "www/bam_v5_4326/RCKI_can72_2020.tif": {
+      "checksum": "a8982ae2e369262e855876ff36765268"
+    },
+    "www/bam_v5_4326/REVI_can72_2020.tif": {
+      "checksum": "c78093076ea91410346f69b6a9fec401"
+    },
+    "www/bam_v5_4326/ROPI_can72_2020.tif": {
+      "checksum": "690ddd0516d3bbf4f30a74aa1b92395e"
+    },
+    "www/bam_v5_4326/RUBL_can72_2020.tif": {
+      "checksum": "09ef82d2c1cf674cfc94c26511449849"
+    },
+    "www/bam_v5_4326/RUGR_can72_2020.tif": {
+      "checksum": "ffdb5c4e785864fce961bc5e51f213f4"
+    },
+    "www/bam_v5_4326/RWBL_can72_2020.tif": {
+      "checksum": "0da0f853669063e656f47763622ca88a"
+    },
+    "www/bam_v5_4326/SAVS_can72_2020.tif": {
+      "checksum": "cf25fb7e487b450404e3f944d962e8fc"
+    },
+    "www/bam_v5_4326/SEWR_can72_2020.tif": {
+      "checksum": "bb731801a41d5a331239a22e4449667e"
+    },
+    "www/bam_v5_4326/SOSA_can72_2020.tif": {
+      "checksum": "c704bbdf67fe8e69efb5e9093e8bdd32"
+    },
+    "www/bam_v5_4326/SOSP_can72_2020.tif": {
+      "checksum": "83826c70bb1e02bf9a507ac812a42dfa"
+    },
+    "www/bam_v5_4326/SPSA_can72_2020.tif": {
+      "checksum": "81aa2136d993be222c5be354a24fca2a"
+    },
+    "www/bam_v5_4326/SWSP_can72_2020.tif": {
+      "checksum": "4ac975c794a880dba0298782246fd1dc"
+    },
+    "www/bam_v5_4326/SWTH_can72_2020.tif": {
+      "checksum": "b3cb7321ae5d31ae9273b8134e5f4458"
+    },
+    "www/bam_v5_4326/TEWA_can72_2020.tif": {
+      "checksum": "e6ee17fc3b0724d79b79074f79daafd7"
+    },
+    "www/bam_v5_4326/TRES_can72_2020.tif": {
+      "checksum": "a79b0af8c0dc50fa19d494161dc2ccf0"
+    },
+    "www/bam_v5_4326/UPSA_can72_2020.tif": {
+      "checksum": "77ed3d49ad53f203b7c738d23063f52c"
+    },
+    "www/bam_v5_4326/VATH_can72_2020.tif": {
+      "checksum": "432239212fbce03df5511fd0ef4532a0"
+    },
+    "www/bam_v5_4326/VESP_can72_2020.tif": {
+      "checksum": "81f833ccb956af03ba803934cc2dc1fc"
+    },
+    "www/bam_v5_4326/WAVI_can72_2020.tif": {
+      "checksum": "a709067b60ff424b95b2318451e3f89e"
+    },
+    "www/bam_v5_4326/WBNU_can72_2020.tif": {
+      "checksum": "3096305c0455fb3fa5f08a583c421e9f"
+    },
+    "www/bam_v5_4326/WCSP_can72_2020.tif": {
+      "checksum": "f0bf914a145ca0ed5c2191003b6a169e"
+    },
+    "www/bam_v5_4326/WETA_can72_2020.tif": {
+      "checksum": "72260f1b7deed2ba3c3a804511fa2de0"
+    },
+    "www/bam_v5_4326/WEWP_can72_2020.tif": {
+      "checksum": "bb3e2bfece0e1bbcda4eb3991d8dac2b"
+    },
+    "www/bam_v5_4326/WISN_can72_2020.tif": {
+      "checksum": "cea1e47a34ba55a1f62a37f0582e4c48"
+    },
+    "www/bam_v5_4326/WIWA_can72_2020.tif": {
+      "checksum": "fa0f38cbaa111145905754b9a2d22ea7"
+    },
+    "www/bam_v5_4326/WIWR_can72_2020.tif": {
+      "checksum": "59a8816261d47db29cf11768ba1c8a00"
+    },
+    "www/bam_v5_4326/WTSP_can72_2020.tif": {
+      "checksum": "b26b853a2d780d3795b9b7ac90db525c"
+    },
+    "www/bam_v5_4326/WWCR_can72_2020.tif": {
+      "checksum": "7af026abcc11535c2a0d85f3fbb279d4"
+    },
+    "www/bam_v5_4326/YBFL_can72_2020.tif": {
+      "checksum": "da5be2dd093dd22db0a30839f6cca45a"
+    },
+    "www/bam_v5_4326/YBSA_can72_2020.tif": {
+      "checksum": "75118b43d03064797463e078ed93577e"
+    },
+    "www/bam_v5_4326/YEWA_can72_2020.tif": {
+      "checksum": "9519e1027a02991d72168e18ea1f7fac"
+    },
+    "www/bam_v5_4326/YHBL_can72_2020.tif": {
+      "checksum": "d90d21aab6f3866f242c1de6eb80cd91"
+    },
+    "www/bam_v5_4326/YRWA_can72_2020.tif": {
+      "checksum": "9853b586a11e3d9ff2ac80c24ddc34b3"
     },
     "www/bird_context/AlderFlycatcher_intro.Rmd": {
       "checksum": "7ac4a57e1868d74a6f12c1e471fe0143"
@@ -4640,6 +4952,18 @@
     "www/data/all_forest_sectoreff.csv": {
       "checksum": "6aeb636d63172a4dd2ec2ddeac221547"
     },
+    "www/data/archive/lease_current_exposure_metrics.rda": {
+      "checksum": "85803d8ed37bc2430eaf0ec787e88e74"
+    },
+    "www/data/archive/lease_reference_exposure_metrics.rda": {
+      "checksum": "15353eae8cc354b8110a41257eb129a0"
+    },
+    "www/data/archive/osr_current_exposure_metrics.rda": {
+      "checksum": "2fd18c1d61b72256a861e3da1d73b5e2"
+    },
+    "www/data/archive/osr_reference_exposure_metrics.rda": {
+      "checksum": "3bfec81444518b62201f8439c6d1003d"
+    },
     "www/data/archive/risk_results_list.rda": {
       "checksum": "21e5fb939e3cbea3d92badd290430c21"
     },
@@ -4653,7 +4977,10 @@
       "checksum": "42e28305cf994e1d0c844de00d7ff6c5"
     },
     "www/data/bam_exposure_metrics.rda": {
-      "checksum": "42b3cc3c35a3e70cceb69d976f3ae600"
+      "checksum": "8302ee2ccdbf8177b46d9f6fa9c5dc88"
+    },
+    "www/data/bam_exposure_metrics_4326.rda": {
+      "checksum": "8e0c5740a8a0a8b64d5a4ddf1ea1d7a9"
     },
     "www/data/bcr_exposure.rds": {
       "checksum": "a97c2799eab645d7a768c34afb403807"
@@ -4666,6 +4993,9 @@
     },
     "www/data/BCR6S.prj": {
       "checksum": "bf5bb77665e61e907554eced607286c4"
+    },
+    "www/data/BCR6S.rda": {
+      "checksum": "8e0c5740a8a0a8b64d5a4ddf1ea1d7a9"
     },
     "www/data/BCR6S.rds": {
       "checksum": "e362a93ed85de703a5296dc2f2c5036d"
@@ -4698,10 +5028,22 @@
       "checksum": "14c09b92d3c7c110979e50d1f9287b59"
     },
     "www/data/lease_current_exposure_metrics.rda": {
-      "checksum": "85803d8ed37bc2430eaf0ec787e88e74"
+      "checksum": "34be65f5af1061faef3e203483a35991"
+    },
+    "www/data/lease_exp_current.rda": {
+      "checksum": "86f78fd997032c825e25767ec3cc1126"
+    },
+    "www/data/lease_exp_current_4326.rda": {
+      "checksum": "d1592b8113906a807ada0cb204b210cb"
+    },
+    "www/data/lease_exp_ref.rda": {
+      "checksum": "8b5bb156f49b6117a808182f96cd2f52"
+    },
+    "www/data/lease_exp_ref_4326.rda": {
+      "checksum": "6452b125a9eb1b173dc837845b43667f"
     },
     "www/data/lease_reference_exposure_metrics.rda": {
-      "checksum": "15353eae8cc354b8110a41257eb129a0"
+      "checksum": "6339da45d2fb7ae5b462d181b1617a40"
     },
     "www/data/linear_coefficients_forest.csv": {
       "checksum": "b11b48c04d6dfedf4693e6a1331ba0d9"
@@ -4714,6 +5056,9 @@
     },
     "www/data/oil_sands_areas.prj": {
       "checksum": "1df7653080e8bd591204c1187ee68d91"
+    },
+    "www/data/oil_sands_areas.rda": {
+      "checksum": "c79874a1b573740b306da9c005386589"
     },
     "www/data/oil_sands_areas.sbn": {
       "checksum": "ebea11ed387e9f5c6113f48330de4f4c"
@@ -4731,10 +5076,10 @@
       "checksum": "b16f43493f20003f9aa8b0b89d14e79e"
     },
     "www/data/osr_current_exposure_metrics.rda": {
-      "checksum": "2fd18c1d61b72256a861e3da1d73b5e2"
+      "checksum": "20072b92df0ccb4bc508b63b1acb1d26"
     },
     "www/data/osr_reference_exposure_metrics.rda": {
-      "checksum": "3bfec81444518b62201f8439c6d1003d"
+      "checksum": "25851011558b96a83dda668c9fe7f976"
     },
     "www/data/osr_risk_data.rda": {
       "checksum": "c7be3cf0ba01a67425f9bd8cc5ba0a1f"
@@ -4743,7 +5088,7 @@
       "checksum": "1597dba5eaf09233dfad2ba58e308181"
     },
     "www/data/osr_risk_data_36.rda": {
-      "checksum": "4ae9344ec1fbc7236c7603c0ab192faa"
+      "checksum": "be4105c65abc0bc8272dcbb9589a1100"
     },
     "www/data/osr_risk_data_updated_2026-09-22.rda": {
       "checksum": "a2f8218894280086cae3f2c5e4778e7e"
@@ -4758,7 +5103,7 @@
       "checksum": "7efa30610d65999eafe0ba29a28311b8"
     },
     "www/data/risk_results_list_36.rda": {
-      "checksum": "2a84b0eb46abccf12a3a6b55583a9dd0"
+      "checksum": "2aabc177342c9c162b61828b2ab1f04c"
     },
     "www/data/risk_results_list_update.rda": {
       "checksum": "dd6cd17d7bf4add3d3cf49d0b2ad58a0"
@@ -4773,19 +5118,19 @@
       "checksum": "9b1b4e18ae8a9a8c4c6080ab51fd06ba"
     },
     "www/data/total_risk_lease_36.rda": {
-      "checksum": "c9cb8e1eeda8db79558377370ce78eed"
+      "checksum": "e7ecd983815c3bc86f52a7e02043a75a"
     },
     "www/data/total_risk_lease_area_36.rda": {
-      "checksum": "94643ebbadff249feb5b50bfc7a31e53"
+      "checksum": "4d3575b51f265c5d039f0bdd55c53e06"
     },
     "www/data/total_risk_osr_36.rda": {
-      "checksum": "ddab540939dacab5af308c328f8e70c9"
+      "checksum": "9690bfcc6b201c05197abe394d73df81"
     },
     "www/data/vulnerability_data.rda": {
-      "checksum": "71d0ef761fa6e341040afac5c2c71d29"
+      "checksum": "b551f23a27e8921ac88945484ed3480a"
     },
     "www/data/vulnerability_data_lease.rda": {
-      "checksum": "4bdbdf437f4be36e256863ad1db3ba60"
+      "checksum": "7ea71e7ede3ba99a0cf8a9327a387b8f"
     },
     "www/exposure_maps/AlderFlycatcher_grid_exposure.tif": {
       "checksum": "d560c66950eaff70ab00d7f77afecb84"
