@@ -163,12 +163,10 @@ tagList(
         column(3, 
                conditionalPanel(
                  condition = "input.tabs == 'vulnerability'",
-                 div(id = "markdown-content", includeMarkdown("Rmd/data_download_tab.md")),
                  uiOutput("download_data_ui")
                ), 
                conditionalPanel(
                  condition = "input.tabs == 'risk'",
-                 div(id = "markdown-content", includeMarkdown("Rmd/risk_download_tab.md")), 
                  uiOutput("download_risk_data_ui")
                )
         ), 
