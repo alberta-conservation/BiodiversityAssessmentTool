@@ -1,6 +1,8 @@
 # Define server logic
 server <- function(input, output, session){
   
+  session$allowReconnect(TRUE)
+  
   # Add this at the beginning of your app script
   if (Sys.getenv("R_CONFIG_ACTIVE") == "shinyapps" || identical(Sys.getenv("CONNECT_CLOUD"), "true") || TRUE) {
     options(chromote.args = c("--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"))
