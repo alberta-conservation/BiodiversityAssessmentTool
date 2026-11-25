@@ -48,12 +48,8 @@ tagList(
           tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
       
       fluidRow(
-        column(2, layout_sidebar(
-          sidebar = sidebar(
-            position = "left"
-          )
-        )),
-        
+        column(2),   # left margin, keeps the text in the same place
+
         column(10, div(id = "markdown-content", includeMarkdown("Rmd/text_intro_tab.Rmd")))
       )
     ), 
@@ -73,23 +69,27 @@ tagList(
                               label = "Select a species", 
                               choices = c("All species", spp_tbl$CommonName),
                               selected = "Black-throated Green Warbler",
-                            checkboxGroupInput(
                               options = list(
                                 placeholder = "Select or type species of interest",
                                 onFocus = I("function() { this.previous = this.getValue(); this.clear(true); this.refreshOptions(true); }"),
                                 onBlur  = I("function() { if (!this.getValue()) this.setValue(this.previous, true); }")
                               )),
+                            checkboxGroupInput(
                               inputId = "prod_field",
                               label = "Choose the Oil Sands Area:",
                               choices = c("Athabasca", "Cold Lake", "Peace River Area 1", "Peace River Area 2"),
                               selected = "Athabasca" # Optional: pre-select an item
                             ), 
-                            selectInput(
-                              inputId = "app_holder", 
-                              label = "Select a lease holder:", 
-                              choices = lease_holders$lease_holder, 
-                              selected = "Suncor Energy Inc."
-                            ), 
+                            selectizeInput(
+                              inputId = "app_holder",
+                              label = "Select a lease holder:",
+                              choices = lease_holders$lease_holder,
+                              selected = "Suncor Energy Inc.",
+                              options = list(
+                                placeholder = "Select or type a lease holder",
+                                onFocus = I("function() { this.previous = this.getValue(); this.clear(true); this.refreshOptions(true); }"),
+                                onBlur  = I("function() { if (!this.getValue()) this.setValue(this.previous, true); }")
+                              )),
                             div(actionButton(inputId = "co_prodField", 
                                              label = "Show selected AOI and leases", 
                                              icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
@@ -112,17 +112,26 @@ tagList(
                  condition = "input.tabs == 'risk'", 
                  tabsetPanel(
                    tabPanel("Tool",  
-                            selectInput(
-                              inputId = "risk_spp", 
-                              label = "Select a species", 
-                              choices = c("All species", risk_species$CommonName), 
-                              selected = "Black-throated Green Warbler"),
-                            selectInput(
-                              inputId = "lease_name", 
-                              label = "Select area for assessment:", 
-                              choices = c("Full OSR", "All leases", risk_leases$lease_name), 
-                              selected = "Suncor Energy Inc."
-                            ), 
+                            selectizeInput(
+                              inputId = "risk_spp",
+                              label = "Select a species",
+                              choices = c("All species", risk_species$CommonName),
+                              selected = "Black-throated Green Warbler",
+                              options = list(
+                                placeholder = "Select or type species of interest",
+                                onFocus = I("function() { this.previous = this.getValue(); this.clear(true); this.refreshOptions(true); }"),
+                                onBlur  = I("function() { if (!this.getValue()) this.setValue(this.previous, true); }")
+                              )),
+                            selectizeInput(
+                              inputId = "lease_name",
+                              label = "Select area for assessment:",
+                              choices = c("Full OSR", "All leases", risk_leases$lease_name),
+                              selected = "Suncor Energy Inc.",
+                              options = list(
+                                placeholder = "Select or type an area",
+                                onFocus = I("function() { this.previous = this.getValue(); this.clear(true); this.refreshOptions(true); }"),
+                                onBlur  = I("function() { if (!this.getValue()) this.setValue(this.previous, true); }")
+                              )),
                             div(actionButton(inputId = "spp_lease", 
                                              label = "Show selected species and area", 
                                              icon = icon(name = "fas fa-crow", lib = "font-awesome"), 
@@ -191,11 +200,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/text_recommendations_temp_tab.md")))
     )
@@ -207,11 +212,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_soc_temp_tab.md")))
     )
@@ -223,11 +224,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_piwo_tab.Rmd")))
     )
@@ -239,11 +236,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_yera_tab.Rmd")))
     )
@@ -255,11 +248,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_rubl_temp_tab.md")))
     )
@@ -271,11 +260,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_cato_temp_tab.md")))
     )
@@ -287,11 +272,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_stgr_temp_tab.md")))
     )
@@ -302,11 +283,7 @@ tagList(
         tags$img(src = "osr.png", height = "300px",  style = "display: block; object-fit: contain; width: 100%; max-width: none;")),
     
     fluidRow(
-      column(2, layout_sidebar(
-        sidebar = sidebar(
-          position = "left"
-        )
-      )),
+      column(2),   # left margin, keeps the text in the same place
       
       column(10, div(id = "markdown-content", includeMarkdown("Rmd/sosc/text_whcr_tab.Rmd")))
     )
