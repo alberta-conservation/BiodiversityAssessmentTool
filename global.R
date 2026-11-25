@@ -21,11 +21,14 @@ library(ggplot2)
 
 load("www/data/sysdata.rda")
 
-osr <- st_transform(st_read("www/data/oil_sands_areas.shp"), crs = 4326)[-5, ]
-bcr <- st_transform(st_read("www/data/BCR6S.shp"), crs = 4326)
-load("www/data/bam_exposure_metrics.rda")
-load("www/data/lease_current_exposure_metrics.rda")
-load("www/data/lease_reference_exposure_metrics.rda")
+# Spatial objects pre-projected to EPSG:4326 (and osa recoded) by prep_spatial_data.R
+osr <- readRDS("www/data/osr_4326.rds")
+bcr <- readRDS("www/data/bcr_4326.rds")
+bcr_exp <- readRDS("www/data/bcr_exp_4326.rds")
+lease_exp_current <- readRDS("www/data/lease_exp_current_4326.rds")
+lease_exp_ref <- readRDS("www/data/lease_exp_ref_4326.rds")
+lease_osa_matrix <- readRDS("www/data/lease_osa_matrix.rds")
+
 load("www/data/osr_current_exposure_metrics.rda")
 load("www/data/osr_reference_exposure_metrics.rda")
 load("www/data/risk_results_list_36.rda")
@@ -36,44 +39,9 @@ load("www/data/total_risk_lease_36.rda")
 load("www/data/total_risk_osr_36.rda")
 load("www/data/total_risk_lease_area_36.rda")
 vulnerability_table <- read.csv("www/vulnerability_data.csv")
-bcr_exp <- st_transform(bam_exposure_metrics, crs = 4326)
 sector_eff <- read.csv("www/data/all_forest_sectoreff.csv")
 linear_eff <- read.csv("www/data/linear_coefficients_forest.csv")
 final_abmi_spp_list <- read.csv("www/data/final_abmi_spp_list.csv")
-#lease_exp_current <- st_transform(lease_exp_current, crs = 4326) |> 
-#  mutate(osa = replace_values(osa, "ATHABASCA" ~ "Athabasca", "COLD LAKE" ~ "Cold Lake", "PEACE RIVER AREA 1" ~ "Peace River Area 1", "PEACE RIVER AREA 2" ~ "Peace River Area 2"))
-
-lease_osa_matrix <- lease_exp_ref |>
-  sf::st_drop_geometry() |>
-  dplyr::distinct(osa, lease_holder)
-
-lease_exp_current <- lease_exp_current |>
-  st_transform(crs = 4326) |>
-  mutate(
-    osa = case_match(
-      osa,
-      "ATHABASCA" ~ "Athabasca",
-      "COLD LAKE" ~ "Cold Lake",
-      "PEACE RIVER AREA 1" ~ "Peace River Area 1",
-      "PEACE RIVER AREA 2" ~ "Peace River Area 2",
-      .default = osa
-    )
-  )
-#lease_exp_ref <- st_transform(lease_exp_ref, crs = 4326) |> 
-#  mutate(osa = replace_values(osa, "ATHABASCA" ~ "Athabasca", "COLD LAKE" ~ "Cold Lake", "PEACE RIVER AREA 1" ~ "Peace River Area 1", "PEACE RIVER AREA 2" ~ "Peace River Area 2"))
-lease_exp_ref <- lease_exp_ref |>
-  st_transform(crs = 4326) |>
-  mutate(
-    osa = case_match(
-      osa,
-      "ATHABASCA" ~ "Athabasca",
-      "COLD LAKE" ~ "Cold Lake",
-      "PEACE RIVER AREA 1" ~ "Peace River Area 1",
-      "PEACE RIVER AREA 2" ~ "Peace River Area 2",
-      .default = osa
-    )
-  )
-
 
 
 lease_holders <- data.frame(lease_holder = levels(as.factor(lease_exp_ref$lease_holder)))
