@@ -68,12 +68,17 @@ tagList(
                  condition = "input.tabs == 'vulnerability'", 
                  tabsetPanel(
                    tabPanel("Tool", 
-                            selectInput(
-                              inputId = "spp", 
+                            selectizeInput(
+                              inputId = "spp",
                               label = "Select a species", 
-                              choices = c("All species", spp_tbl$CommonName), 
-                              selected = "Black-throated Green Warbler"),
+                              choices = c("All species", spp_tbl$CommonName),
+                              selected = "Black-throated Green Warbler",
                             checkboxGroupInput(
+                              options = list(
+                                placeholder = "Select or type species of interest",
+                                onFocus = I("function() { this.previous = this.getValue(); this.clear(true); this.refreshOptions(true); }"),
+                                onBlur  = I("function() { if (!this.getValue()) this.setValue(this.previous, true); }")
+                              )),
                               inputId = "prod_field",
                               label = "Choose the Oil Sands Area:",
                               choices = c("Athabasca", "Cold Lake", "Peace River Area 1", "Peace River Area 2"),
