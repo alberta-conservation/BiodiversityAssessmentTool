@@ -784,7 +784,7 @@ server <- function(input, output, session){
         
       }
       
-      # Render the Rmd to a .pdf for downloading
+      # Render the Rmd to a .html for downloading
       rmarkdown::render(
         input = vulnerability_report,
         output_format = "html_document",
